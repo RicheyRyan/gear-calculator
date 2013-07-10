@@ -34,13 +34,10 @@
 		defaults: [150, 152, 155, 158, 160, 162.5, 165, 167.5, 170, 172.5, 175, 177.5, 180, 185, 190]
 	});
 
-	
-
 	Calculator.Collections.WheelSizes = Backbone.Collection.extend({
 		model: Calculator.Models.WheelSize
 	});
 
 
 }());
-console.log("Finished Creating Models");
 

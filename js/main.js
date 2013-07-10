@@ -7,14 +7,20 @@
 			"index" : "index"
 		},
 
-		initialize: function (options){
+		initialize: function (){
 			this.index();
 		},
 
 		index: function (){
+			//Views Instantiated 
+			Calculator.Values.chainringForm = new Calculator.Views.ChainringView({el: $("#chainring")});
+			Calculator.Values.cogForm = new Calculator.Views.CogView({el: $("#cog")});
+			Calculator.Values.wheelForm = new Calculator.Views.WheelView({el: $("#wheel")});
+			Calculator.Values.crankForm = new Calculator.Views.CrankView({el: $("#crank")});
+
 		}
 	});
-
+	//Models instantiated 
 	Calculator.Values.chainring = new Calculator.Models.ChainringTeeth();
 	Calculator.Values.cog = new Calculator.Models.CogTeeth();
 	Calculator.Values.cranks = new Calculator.Models.CrankLength();
@@ -33,6 +39,8 @@
 	}
 
 	loadSizes();
+
+	Calculator.Values.router = new Calculator.Routers.GearRouter();
 
 }());
 

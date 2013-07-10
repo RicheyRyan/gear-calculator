@@ -1,5 +1,5 @@
 .gear-form{
-	padding-right: 60px;
+	/*padding-right: 30px;*/
 }
 
 .form-row{
@@ -44,4 +44,9 @@
 	width: 100%;
 	height: 100%;
 	text-align: center;
+}
+
+.main-content{
+	padding-left: 40px;
+	padding-right: 40px;
 }
