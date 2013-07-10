@@ -30,64 +30,67 @@
 	<div class="row">
 		<!--BEGIN SIDEBAR-->
 		<div class="large-4 columns gear-form">
-			<!--CHAINRING-->
-			<div class ="row form-row">
-				<div class ="small-6 columns ">
-					<label>Chainring Teeth</label>
+			<form id="gear-form">
+				<!--CHAINRING-->
+				<div class ="row form-row">
+					<div class ="small-6 columns ">
+						<label>Chainring Teeth</label>
+					</div>
+					<div class ="small-6 columns">
+						<select name="chainring" id="chainring">
+							<!--WILL BE POPULATED BY TEMPLATE-->
+						</select>
+					</div>
 				</div>
-				<div class ="small-6 columns">
-					<select id="chainring">
-						<!--WILL BE POPULATED BY TEMPLATE-->
-					</select>
+				<!--COG-->
+				<div class ="row form-row">
+					<div class ="small-6 columns">
+						<label>Cog Teeth</label>
+					</div>
+					<div class ="small-6 columns">
+						<select name="cog" id="cog">
+							<!--WILL BE POPULATED BY TEMPLATE-->
+						</select>
+					</div>
 				</div>
-			</div>
-			<!--COG-->
-			<div class ="row form-row">
-				<div class ="small-6 columns">
-					<label>Cog Teeth</label>
+				<!--WHEEL-->
+				<div class ="row form-row">
+					<div class ="small-6 columns">
+						<label>Wheel Size</label>
+					</div>
+					<div class ="small-6 columns">
+						<select name="wheel" id="wheel">
+							<!--WILL BE POPULATED BY TEMPLATE-->
+						</select>
+					</div>
 				</div>
-				<div class ="small-6 columns">
-					<select id="cog">
-						<!--WILL BE POPULATED BY TEMPLATE-->
-					</select>
+				<!--CRANK-->
+				<div class ="row form-row">
+					<div class ="small-6 columns">
+						<label>Crank Length</label>
+					</div>
+					<div class ="small-6 columns">
+						<select name="crank" id="crank">
+							<!--WILL BE POPULATED BY TEMPLATE-->
+						</select>
+					</div>
 				</div>
-			</div>
-			<!--WHEEL-->
-			<div class ="row form-row">
-				<div class ="small-6 columns">
-					<label>Wheel Size</label>
+				<!--SKID-->
+				<div class="row form-row">
+					<div class ="small-6 columns ">
+						<label>Ambidextrous Skidder?</label>
+					</div>
+					<div class ="small-6 columns">
+						<input type="checkbox" name="skid" value="true">
+					</div>
 				</div>
-				<div class ="small-6 columns">
-					<select id="wheel">
-						<!--WILL BE POPULATED BY TEMPLATE-->
-					</select>
-				</div>
-			</div>
-			<!--CRANK-->
-			<div class ="row form-row">
-				<div class ="small-6 columns">
-					<label>Crank Length</label>
-				</div>
-				<div class ="small-6 columns">
-					<select id="crank">
-						<!--WILL BE POPULATED BY TEMPLATE-->
-					</select>
-				</div>
-			</div>
-			<!--SKID-->
-			<div class="row form-row">
-				<div class ="small-6 columns ">
-					<label>Ambidextrous Skidder?</label>
-				</div>
-				<div class ="small-6 columns">
-					<input type="checkbox" name="ambi-skid" value="skidder">
-				</div>
-			</div>
 
-			<!--CALCULATE-->
-			<div class ="row form-row calculate-button">
-				<p><a href="#" class="small button">Calculate</a></p>
-			</div>
+				<!--CALCULATE-->
+				<div class ="row form-row calculate-button">
+					<!--<p><a type="submit" class="small button calculate">Calculate</a></p>-->
+					<input type="submit" value="Submit" class="button success"></input>
+				</div>
+			</form>
 		</div>
 		
 		<!--END SIDEBAR-->

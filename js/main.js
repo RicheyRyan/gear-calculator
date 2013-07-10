@@ -17,6 +17,7 @@
 			Calculator.Values.cogForm = new Calculator.Views.CogView({el: $("#cog")});
 			Calculator.Values.wheelForm = new Calculator.Views.WheelView({el: $("#wheel")});
 			Calculator.Values.crankForm = new Calculator.Views.CrankView({el: $("#crank")});
+			Calculator.Values.formView = new Calculator.Views.FormView({ el: $('#gear-form') });
 
 		}
 	});

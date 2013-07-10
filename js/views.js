@@ -70,4 +70,24 @@
 
 	});
 
+	Calculator.Views.FormView = Backbone.View.extend({
+
+		events: {
+			"submit": "save"
+		},
+
+		save: function() {
+			var arr = this.$el.serializeArray();
+			var length = arr;
+			var data = _(arr).reduce(function(acc, field) {
+				acc[field.name] = field.value;
+				return acc;
+			}, {});
+			Calculator.Values.profile = new Calculator.Models.Profile(data);
+			console.log(arr);
+			return false;
+		}
+
+	});
+
 }());
