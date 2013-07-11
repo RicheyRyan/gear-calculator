@@ -84,7 +84,6 @@
 				return acc;
 			}, {});
 			Calculator.Values.profile.set(data);
-			console.log(arr);
 			return false;
 		}
 
@@ -102,6 +101,7 @@
 
 		updatePage: function () {
 			this.$el.html(_.template($('#main-content').html(), {}));
+			$(document).foundation('section', 'reflow');
 		}
 
 	});
