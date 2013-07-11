@@ -83,20 +83,25 @@
 				acc[field.name] = field.value;
 				return acc;
 			}, {});
-			Calculator.Values.profile = new Calculator.Models.Profile(data);
+			Calculator.Values.profile.set(data);
 			console.log(arr);
 			return false;
 		}
 
 	});
 
-	Calculator.Views.Placeholder = Backbone.View.extend({
+	Calculator.Views.Main = Backbone.View.extend({
 		initialize: function(){
+			this.listenTo(Calculator.Values.profile, "change", this.updatePage);
 			this.render();
 		},
 
 		render: function () {
 			this.$el.html(_.template($('#placeholder').html(), {}));
+		},
+
+		updatePage: function () {
+			this.$el.html(_.template($('#main-content').html(), {}));
 		}
 
 	});

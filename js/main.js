@@ -18,8 +18,8 @@
 			Calculator.Values.wheelForm = new Calculator.Views.WheelView({el: $("#wheel")});
 			Calculator.Values.crankForm = new Calculator.Views.CrankView({el: $("#crank")});
 			Calculator.Values.formView = new Calculator.Views.FormView({ el: $('#gear-form') });
-			Calculator.Values.placeholder = new Calculator.Views.Placeholder({el:$('.main-content')});
-
+			Calculator.Values.profile = new Calculator.Models.Profile();
+			Calculator.Values.main = new Calculator.Views.Main({el:$('.main-content')});
 		}
 	});
 	//Models instantiated 
