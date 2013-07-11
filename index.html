@@ -98,7 +98,48 @@
 		<!--BEGIN MAIN CONTENT-->
 		<div class="large-8 columns main-content">
 
-			<!--BEGIN NUMBERS-->
+			
+		</div>
+		<!--END MAIN CONTENT-->
+	</div>
+	<!--MAIN BODY-->
+
+	<!-- TEMPLATES -->
+	<script type="text/template" id="chainring-temp">
+	<option value = "<%- value %>"><%- value %></option>
+	</script>
+
+	<script type="text/template" id="cog-temp">
+	<option value = "<%- value %>"><%- value %></option>
+	</script>
+
+	<script type="text/template" id="wheel-temp">
+	<option value = "<%- value %>"><%- name %></option>
+	</script>
+
+	<script type="text/template" id="crank-temp">
+	<option value = "<%- value %>"><%- value %></option>
+	</script>
+
+	<script type="text/template" id="placeholder">
+	<!--BEGIN NUMBERS-->
+			<div class="row">
+				<div class="panel radius">
+	              <h6>Welcome!</h6>
+	              <p>Fill out the form to see your gear inches, development in metres, gain ratio and skid patches calculated.</p>
+
+	              <p>You will also be
+	              able to see a cadence chart of your speed in miles per hour and kilometres per hour, depending on your RPM, as well as a list of
+	              equivalent gear ratios.</p>
+	            </div>	
+			</div>
+			<!--END NUMBERS-->
+
+			
+	</script>
+
+	<script type="text/template" id="main-content">
+	<!--BEGIN NUMBERS-->
 			<div class="row number-row">
 				<div class="row">
 					<div class="large-3 columns ">
@@ -245,26 +286,6 @@
 				</div>
 			</div>
 			<!--END SECTIONS-->			
-		</div>
-		<!--END MAIN CONTENT-->
-	</div>
-	<!--MAIN BODY-->
-
-	<!-- TEMPLATES -->
-	<script type="text/template" id="chainring-temp">
-	<option value = "<%- value %>"><%- value %></option>
-	</script>
-
-	<script type="text/template" id="cog-temp">
-	<option value = "<%- value %>"><%- value %></option>
-	</script>
-
-	<script type="text/template" id="wheel-temp">
-	<option value = "<%- value %>"><%- name %></option>
-	</script>
-
-	<script type="text/template" id="crank-temp">
-	<option value = "<%- value %>"><%- value %></option>
 	</script>
 
 	<script>
