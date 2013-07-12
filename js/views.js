@@ -111,7 +111,38 @@
 			var patches = Calculator.Values.calcSkidPatches(chainring,cog, skid);
 
 			this.$el.html(_.template($('#numbers-temp').html(), {gearInches: inches, development: dev, gainRatio: gain, skidPatches : patches }));
-			console.log("rendering numbers");
+
+			return this;
+		}
+	});
+
+	Calculator.Views.Cadence = Backbone.View.extend({
+		initialize: function(){
+			this.render();
+		},
+
+		render: function () {
+			var chainring = Calculator.Values.profile.attributes.chainring;
+			var cog = Calculator.Values.profile.attributes.cog;
+			var wheel = Calculator.Values.profile.attributes.wheel;
+
+			var inches = Calculator.Values.calcGearInches(wheel, chainring, cog);
+			var dev = Calculator.Values.calcMetresOfDevelopment(inches);
+
+			var cadences = [];
+
+			var min = 1;
+			var max = 15;
+
+			for(var i = min; i <= max; i ++){
+				var km = Calculator.Values.calcCadenceKM(dev, i*10);
+				var miles = (Calculator.Values.convertKMToMiles(km)).toFixed(1);
+				cadences[i] = {cadence: i*10, km: km, miles: miles  };
+			}
+
+			var html = "";
+			_.each(cadences, function(obj){ html += _.template($('#cadence-temp').html(), obj); });
+			this.$el.html(html);
 
 			return this;
 		}
@@ -133,6 +164,7 @@
 			$(document).foundation('section', 'reflow');
 
 			Calculator.Values.numbers = new Calculator.Views.Numbers({el : $('.number-row')});
+			Calculator.Values.cadence = new Calculator.Views.Cadence({ el: $('#cadence-table') });
 
 			return this;
 		}

@@ -164,62 +164,8 @@
 												<th><label>M/h</label></th>
 											</tr>
 										</thead>
-										<tbody>
-											<tr>
-												<td>40</td>
-												<td>21</td>
-												<td>16</td>
-											</tr>
-											<tr>
-												<td>40</td>
-												<td>21</td>
-												<td>16</td>
-											</tr>
-											<tr>
-												<td>40</td>
-												<td>21</td>
-												<td>16</td>
-											</tr>
-											<tr>
-												<td>40</td>
-												<td>21</td>
-												<td>16</td>
-											</tr>
-											<tr>
-												<td>40</td>
-												<td>21</td>
-												<td>16</td>
-											</tr>
-											<tr>
-												<td>40</td>
-												<td>21</td>
-												<td>16</td>
-											</tr>
-											<tr>
-												<td>40</td>
-												<td>21</td>
-												<td>16</td>
-											</tr>
-											<tr>
-												<td>40</td>
-												<td>21</td>
-												<td>16</td>
-											</tr>
-											<tr>
-												<td>40</td>
-												<td>21</td>
-												<td>16</td>
-											</tr>
-											<tr>
-												<td>40</td>
-												<td>21</td>
-												<td>16</td>
-											</tr>
-											<tr>
-												<td>40</td>
-												<td>21</td>
-												<td>16</td>
-											</tr>
+										<tbody id="cadence-table">
+											
 										</tbody>
 									</table>
 								</div>
@@ -288,6 +234,14 @@
 				</div>
 			</div>
 		</div>
+	</script>
+
+	<script type="text/template" id="cadence-temp">
+		<tr>
+			<td><%- cadence %></td>
+			<td><%- km %></td>
+			<td><%- miles %></td>
+		</tr>
 	</script>
 
 	<script>

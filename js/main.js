@@ -19,7 +19,6 @@
 			Calculator.Values.crankForm = new Calculator.Views.CrankView({el: $("#crank")});
 			Calculator.Values.formView = new Calculator.Views.FormView({ el: $('#gear-form') });
 			Calculator.Values.main = new Calculator.Views.Main({el : $('.main-content')});
-			
 		}
 	});
 	//Models instantiated 
@@ -60,6 +59,16 @@
 		}
 		return ambi? factor*2 : factor;
 
+	};
+
+	Calculator.Values.calcCadenceKM = function (metres, cadence){
+		var distance = metres * cadence;
+		var speed = distance * 60;
+		return (speed/1000).toFixed(1);
+	};
+
+	Calculator.Values.convertKMToMiles = function (km){
+		return km *= 0.62137;
 	};
 
 	function loadSizes(){
