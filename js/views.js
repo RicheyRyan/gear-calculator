@@ -155,33 +155,20 @@
 
 		render: function () {
 			var chainring = Calculator.Values.profile.attributes.chainring;
+			var cog = Calculator.Values.profile.attributes.cog;
+			var wheel = Calculator.Values.profile.attributes.wheel;
 
 			var inches = Calculator.Values.calcGearInches(wheel, chainring, cog);
-
-			var chainringMax = Calculator.Values.chainring.attributes.maxTeeth;
-			var chainringMin = Calculator.Values.chainring.attributes.minTeeth;
-			var cogMax = Calculator.Values.cog.attributes.maxTeeth;
-			var cogMin = Calculator.Values.cog.attributes.minTeeth;
-
-			var chainringArray = [];
-			var cogArray = [];
-
+			var min = Calculator.Values.chainring.attributes.minTeeth;
+			var max = Calculator.Values.chainring.attributes.maxTeeth;
 			var ratios = [];
 
-
-			for(var i = 0; i + chainringMin <= chainringMax; i++){
-				chainringArray[i] = chainringMin + i;
-			}
-
-			for(var j = 0; j +cogMin <= cogMax; j++){
-				cogArray[j] = cogMin + i;
-			}
-
-			for(var k = 0; k < chainringArray.length; k++){
-				for(var l = 0; l < cogArray.length; l++){
-					if(Calculator.Values.calcGearInches(wheel, chainringArray[k], cogArray[l]) == inches){
-						ratios.push(chainringArray[k].toString() + "x" + cogArray[l].toString());
-					}
+			for(var i = min; i <= max; i ++){
+				var cog = Math.floor(wheel*i/inches);
+				var ratio = i.toString() + "x" + cog;
+				var newRatio = Calculator.Values.calcGearInches(wheel,i,cog);
+				if((newRatio - inches) < 1){
+					ratios.push(ratio);
 				}
 			}
 
