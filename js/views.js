@@ -16,6 +16,7 @@
 				html += _.template($('#chainring-temp').html(), {value : i});
 			}
 			this.$el.html(html);
+			return this;
 		}
 
 	});
@@ -34,6 +35,7 @@
 				html += _.template($('#cog-temp').html(), {value : i});
 			}
 			this.$el.html(html);
+			return this;
 		}
 
 	});
@@ -50,6 +52,7 @@
 			var html = "";
 			_.each(sizes, function(obj){ html += _.template($('#wheel-temp').html(), {name: obj.name, value: obj.value}); });
 			this.$el.html(html);
+			return this;
 		}
 
 	});
@@ -66,6 +69,7 @@
 			var html = "";
 			_.each(lengths, function(obj){ html += _.template($('#crank-temp').html(), {value: obj}); });
 			this.$el.html(html);
+			return this;
 		}
 
 	});
@@ -89,6 +93,30 @@
 
 	});
 
+	Calculator.Views.Numbers = Backbone.View.extend({
+		initialize: function(){
+			this.render();
+		},
+
+		render: function () {
+			var chainring = Calculator.Values.profile.attributes.chainring;
+			var cog = Calculator.Values.profile.attributes.cog;
+			var wheel = Calculator.Values.profile.attributes.wheel;
+			var crank = Calculator.Values.profile.attributes.crank;
+			var skid = Calculator.Values.profile.attributes.skid;
+
+			var inches = Calculator.Values.calcGearInches(wheel, chainring, cog);
+			var dev = Calculator.Values.calcMetresOfDevelopment(inches);
+			var gain = Calculator.Values.calcGainRatio(wheel, crank, chainring,cog);
+			var patches = Calculator.Values.calcSkidPatches(chainring,cog, skid);
+
+			this.$el.html(_.template($('#numbers-temp').html(), {gearInches: inches, development: dev, gainRatio: gain, skidPatches : patches }));
+			console.log("rendering numbers");
+
+			return this;
+		}
+	});
+
 	Calculator.Views.Main = Backbone.View.extend({
 		initialize: function(){
 			this.listenTo(Calculator.Values.profile, "change", this.updatePage);
@@ -96,12 +124,17 @@
 		},
 
 		render: function () {
-			this.$el.html(_.template($('#placeholder').html(), {}));
+			this.$el.html(_.template($('#placeholder-temp').html(), {}));
+			return this;
 		},
 
 		updatePage: function () {
-			this.$el.html(_.template($('#main-content').html(), {}));
+			this.$el.html(_.template($('#main-content-temp').html(), {}));
 			$(document).foundation('section', 'reflow');
+
+			Calculator.Values.numbers = new Calculator.Views.Numbers({el : $('.number-row')});
+
+			return this;
 		}
 
 	});

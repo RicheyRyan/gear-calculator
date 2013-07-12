@@ -18,8 +18,8 @@
 			Calculator.Values.wheelForm = new Calculator.Views.WheelView({el: $("#wheel")});
 			Calculator.Values.crankForm = new Calculator.Views.CrankView({el: $("#crank")});
 			Calculator.Values.formView = new Calculator.Views.FormView({ el: $('#gear-form') });
-			Calculator.Values.profile = new Calculator.Models.Profile();
-			Calculator.Values.main = new Calculator.Views.Main({el:$('.main-content')});
+			Calculator.Values.main = new Calculator.Views.Main({el : $('.main-content')});
+			
 		}
 	});
 	//Models instantiated 
@@ -27,6 +27,40 @@
 	Calculator.Values.cog = new Calculator.Models.CogTeeth();
 	Calculator.Values.cranks = new Calculator.Models.CrankLength();
 	Calculator.Values.wheels = new Calculator.Collections.WheelSizes();
+	Calculator.Values.profile = new Calculator.Models.Profile();
+
+	Calculator.Values.calcGearInches = function (wheel, chainring, cog){
+		//uses wheel diameter in inches
+		return (wheel * (chainring/cog)).toFixed(1);
+	};
+
+	Calculator.Values.calcMetresOfDevelopment = function (gearInches){
+		//convert to metres of development by multiplying by PI times imperial to metric conversion i.e. .0254
+		return (gearInches * 0.0254*Math.PI).toFixed(1);
+	};
+
+	Calculator.Values.mmToInches = function (mm){
+		return mm * 0.0393701;
+	};
+
+	Calculator.Values.calcGainRatio = function (wheelDiam, crank, chainring, cog){
+		crank = Calculator.Values.mmToInches(crank);
+		var radRatio = (wheelDiam/2)/crank;
+		return (radRatio * (chainring/cog)).toFixed(1);
+	};
+
+	Calculator.Values.calcSkidPatches = function (chainring, cog, ambi){
+		var factor = 0;
+		var ratio = chainring/cog;
+		var multiple = 0.1;
+
+		while(Math.floor(multiple) != multiple){
+			factor ++;
+			multiple = ratio * factor;
+		}
+		return ambi? factor*2 : factor;
+
+	};
 
 	function loadSizes(){
 		var sizes = [{value: 29, name: "29 inch (nominal)"},{value: 28, name: "28 inch (nominal)"},{value: 27, name: "27 inch (nominal)"},{value: 26, name: "26 inch (nominal)"},
@@ -49,27 +83,3 @@
 	Calculator.Values.router = new Calculator.Routers.GearRouter();
 
 }());
-
-
-function calcGearInches(wheel, chainring, cog){
-	//uses wheel diameter in inches
-	return (wheel * (chainring/cog)).toFixed(1);
-}
-
-function calcMetresOfDevelopment(gearInches){
-	//convert to metres of development by multiplying by PI times imperial to metric conversion i.e. .0254
-	return (gearInches * 0.0254*Math.PI).toFixed(1);
-}
-
-function mmToInches(mm){
-	return mm * 0.0393701;
-}
-
-function calcGainRatio(wheelDiam, crank, chainring, cog){
-	var radRatio = (wheelDiam/2)/crank;
-	return (radRatio * (chainring/cog)).toFixed(1);
-}
-
-
-
-

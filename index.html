@@ -121,7 +121,7 @@
 	<option value = "<%- value %>"><%- value %></option>
 	</script>
 
-	<script type="text/template" id="placeholder">
+	<script type="text/template" id="placeholder-temp">
 	<!--BEGIN NUMBERS-->
 			<div class="row">
 				<div class="panel radius">
@@ -138,51 +138,10 @@
 			
 	</script>
 
-	<script type="text/template" id="main-content">
+	<script type="text/template" id="main-content-temp">
 	<!--BEGIN NUMBERS-->
 			<div class="row number-row">
-				<div class="row">
-					<div class="large-3 columns ">
-						<div class ="row title-field">
-							<h6>Gear Inches</h6>
-						</div>
-						<div class ="row">
-							<div class="panel callout number-field">
-								<h3>76</h3>
-							</div>
-						</div>
-					</div>
-					<div class="large-3 columns ">
-						<div class="row title-field">
-							<h6>Development</h6>
-						</div>
-						<div class ="row">
-							<div class="panel callout number-field">
-								<h3>76</h3>
-							</div>
-						</div>
-					</div>
-					<div class="large-3 columns">
-						<div class="row title-field">
-							<h6>Gain Ratio</h6>
-						</div>
-						<div class ="row">
-							<div class="panel callout number-field">
-								<h3>76</h3>
-							</div>
-						</div>
-					</div>
-					<div class="large-3 columns">
-						<div class="row title-field">
-							<h6>Skid Patches</h6>
-						</div>
-						<div class ="row">
-							<div class="panel callout number-field">
-								<h3>7</h3>
-							</div>
-						</div>
-					</div>
-				</div>
+				
 			</div>
 			<!--END NUMBERS-->
 
@@ -286,6 +245,49 @@
 				</div>
 			</div>
 			<!--END SECTIONS-->			
+	</script>
+
+	<script type="text/template" id="numbers-temp">
+		<div class="large-3 columns ">
+			<div class ="row title-field">
+				<h6>Gear Inches</h6>
+			</div>
+			<div class ="row">
+				<div class="panel callout number-field">
+					<h3><%- gearInches %></h3>
+				</div>
+			</div>
+		</div>
+		<div class="large-3 columns ">
+			<div class="row title-field">
+				<h6>Development</h6>
+			</div>
+			<div class ="row">
+				<div class="panel callout number-field">
+					<h3><%- development %></h3>
+				</div>
+			</div>
+		</div>
+		<div class="large-3 columns">
+			<div class="row title-field">
+				<h6>Gain Ratio</h6>
+			</div>
+			<div class ="row">
+				<div class="panel callout number-field">
+					<h3><%- gainRatio %></h3>
+				</div>
+			</div>
+		</div>
+		<div class="large-3 columns">
+			<div class="row title-field">
+				<h6>Skid Patches</h6>
+			</div>
+			<div class ="row">
+				<div class="panel callout number-field">
+					<h3><%- skidPatches %></h3>
+				</div>
+			</div>
+		</div>
 	</script>
 
 	<script>
