@@ -1,2 +1,1 @@
-A gear calculator for fixed gear bikes
-=======================================
+A gear calculator for singlespeed bikes.
