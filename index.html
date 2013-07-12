@@ -97,7 +97,7 @@
 
 		<!--BEGIN MAIN CONTENT-->
 		<div class="large-8 columns main-content">
-
+			<!--WILL BE POPULATED BY TEMPLATE-->
 			
 		</div>
 		<!--END MAIN CONTENT-->
@@ -141,7 +141,7 @@
 	<script type="text/template" id="main-content-temp">
 	<!--BEGIN NUMBERS-->
 			<div class="row number-row">
-				
+				<!--WILL BE POPULATED BY TEMPLATE-->
 			</div>
 			<!--END NUMBERS-->
 
@@ -165,7 +165,7 @@
 											</tr>
 										</thead>
 										<tbody id="cadence-table">
-											
+											<!--WILL BE POPULATED BY TEMPLATE-->
 										</tbody>
 									</table>
 								</div>
@@ -176,14 +176,9 @@
 						<p class="title" data-section-title><a href="#panel2">Equivalent Gearing</a></p>
 						<div class="content" data-section-content>
 							<div class="row">
-								<div class="large-12 columns">
-									<span class="label round">52x12</span>
-									<span class="label round">43X13</span>
-									<span class="label round">40X12</span>
-									<span class="label round">40X12</span>
-									<span class="label round">40X12</span>
-									<span class="label round">40X12</span>
-									<span class="label round">40X12</span>
+								<div class="large-12 columns gearing">
+									<!--WILL BE POPULATED BY TEMPLATE-->
+									
 								</div>
 							</div>
 						</div>
@@ -242,6 +237,10 @@
 			<td><%- km %></td>
 			<td><%- miles %></td>
 		</tr>
+	</script>
+
+	<script type="text/template" id="gearing-temp">
+		<span class="label round"><%- gearing %></span>
 	</script>
 
 	<script>

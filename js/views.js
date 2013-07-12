@@ -134,7 +134,7 @@
 			var min = 1;
 			var max = 15;
 
-			for(var i = min; i <= max; i ++){
+			for(var i = 0; i <= max; i ++){
 				var km = Calculator.Values.calcCadenceKM(dev, i*10);
 				var miles = (Calculator.Values.convertKMToMiles(km)).toFixed(1);
 				cadences[i] = {cadence: i*10, km: km, miles: miles  };
@@ -142,6 +142,51 @@
 
 			var html = "";
 			_.each(cadences, function(obj){ html += _.template($('#cadence-temp').html(), obj); });
+			this.$el.html(html);
+
+			return this;
+		}
+	});
+
+	Calculator.Views.Gearing = Backbone.View.extend({
+		initialize: function(){
+			this.render();
+		},
+
+		render: function () {
+			var chainring = Calculator.Values.profile.attributes.chainring;
+
+			var inches = Calculator.Values.calcGearInches(wheel, chainring, cog);
+
+			var chainringMax = Calculator.Values.chainring.attributes.maxTeeth;
+			var chainringMin = Calculator.Values.chainring.attributes.minTeeth;
+			var cogMax = Calculator.Values.cog.attributes.maxTeeth;
+			var cogMin = Calculator.Values.cog.attributes.minTeeth;
+
+			var chainringArray = [];
+			var cogArray = [];
+
+			var ratios = [];
+
+
+			for(var i = 0; i + chainringMin <= chainringMax; i++){
+				chainringArray[i] = chainringMin + i;
+			}
+
+			for(var j = 0; j +cogMin <= cogMax; j++){
+				cogArray[j] = cogMin + i;
+			}
+
+			for(var k = 0; k < chainringArray.length; k++){
+				for(var l = 0; l < cogArray.length; l++){
+					if(Calculator.Values.calcGearInches(wheel, chainringArray[k], cogArray[l]) == inches){
+						ratios.push(chainringArray[k].toString() + "x" + cogArray[l].toString());
+					}
+				}
+			}
+
+			var html = "";
+			_.each(ratios, function(obj){ html += _.template($('#gearing-temp').html(), {gearing : obj}); });
 			this.$el.html(html);
 
 			return this;
@@ -165,6 +210,7 @@
 
 			Calculator.Values.numbers = new Calculator.Views.Numbers({el : $('.number-row')});
 			Calculator.Values.cadence = new Calculator.Views.Cadence({ el: $('#cadence-table') });
+			Calculator.Values.gearing = new Calculator.Views.Gearing({el : $('.gearing')});
 
 			return this;
 		}
