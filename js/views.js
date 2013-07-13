@@ -16,6 +16,13 @@
 				html += _.template($('#chainring-temp').html(), {value : i});
 			}
 			this.$el.html(html);
+
+			$('#chainring').children().each(function(index, object){
+				var element = $(object);
+				if(element.html() == 46){
+					element.attr("selected", "selected");
+				}
+			});
 			return this;
 		}
 
@@ -35,6 +42,12 @@
 				html += _.template($('#cog-temp').html(), {value : i});
 			}
 			this.$el.html(html);
+			$('#cog').children().each(function(index, object){
+				var element = $(object);
+				if(element.html() == 16){
+					element.attr("selected", "selected");
+				}
+			});
 			return this;
 		}
 
@@ -52,6 +65,12 @@
 			var html = "";
 			_.each(sizes, function(obj){ html += _.template($('#wheel-temp').html(), {name: obj.name, value: obj.value}); });
 			this.$el.html(html);
+			$('#wheel').children().each(function(index, object){
+				var element = $(object);
+					if(element.html() == "27 inch (nominal)"){
+					element.attr("selected", "selected");
+				}
+			});
 			return this;
 		}
 
@@ -69,6 +88,7 @@
 			var html = "";
 			_.each(lengths, function(obj){ html += _.template($('#crank-temp').html(), {value: obj}); });
 			this.$el.html(html);
+			$("[value='165']").attr("selected", "selected");
 			return this;
 		}
 
@@ -162,12 +182,13 @@
 			var min = Calculator.Values.chainring.attributes.minTeeth;
 			var max = Calculator.Values.chainring.attributes.maxTeeth;
 			var ratios = [];
+			var originalRatio = chainring.toString() + "x" + cog.toString();
 
 			for(var i = min; i <= max; i ++){
 				var cog = Math.floor(wheel*i/inches);
 				var ratio = i.toString() + "x" + cog;
 				var newRatio = Calculator.Values.calcGearInches(wheel,i,cog);
-				if((newRatio - inches) < 1){
+				if((newRatio - inches) < 1 && ratio != originalRatio){
 					ratios.push(ratio);
 				}
 			}
