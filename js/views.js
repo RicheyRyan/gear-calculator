@@ -9,6 +9,7 @@
 		},
 
 		render: function () {
+			//Get the max and min values and populate the template with all the numbers in between.
 			var max = Calculator.Values.chainring.attributes.maxTeeth;
 			var min = Calculator.Values.chainring.attributes.minTeeth;
 			var html = "";
@@ -35,6 +36,7 @@
 		},
 
 		render: function () {
+			//Get the max and min values and populate the template with all the numbers in between.
 			var max = Calculator.Values.cog.attributes.maxTeeth;
 			var min = Calculator.Values.cog.attributes.minTeeth;
 			var html = "";
@@ -60,6 +62,7 @@
 		},
 
 		render: function () {
+			//Go through th different wheel sizes and render them to the template.
 			var sizes = [];
 			_.map(Calculator.Values.wheels.models, function(obj){ sizes.push(obj.attributes);});
 			var html = "";
@@ -83,6 +86,7 @@
 		},
 
 		render: function () {
+			//Go through list of crank lengths and render them to the template.
 			var lengths = [];
 			_.map(Calculator.Values.cranks.attributes, function(obj){ lengths.push(obj);});
 			var html = "";
@@ -101,6 +105,7 @@
 		},
 
 		save: function() {
+			//Save the information from the form to the profile model.
 			var arr = this.$el.serializeArray();
 			var length = arr;
 			var data = _(arr).reduce(function(acc, field) {
@@ -119,6 +124,7 @@
 		},
 
 		render: function () {
+			//Populate the numbers field.
 			var chainring = Calculator.Values.profile.attributes.chainring;
 			var cog = Calculator.Values.profile.attributes.cog;
 			var wheel = Calculator.Values.profile.attributes.wheel;
@@ -142,6 +148,7 @@
 		},
 
 		render: function () {
+			//Calculate the table of cadences
 			var chainring = Calculator.Values.profile.attributes.chainring;
 			var cog = Calculator.Values.profile.attributes.cog;
 			var wheel = Calculator.Values.profile.attributes.wheel;
@@ -174,6 +181,7 @@
 		},
 
 		render: function () {
+			//Calculate the equivalent cadences within 1 gear inch.
 			var chainring = Calculator.Values.profile.attributes.chainring;
 			var cog = Calculator.Values.profile.attributes.cog;
 			var wheel = Calculator.Values.profile.attributes.wheel;
@@ -213,6 +221,7 @@
 		},
 
 		updatePage: function () {
+			//Render all the sub views in the main view.
 			this.$el.html(_.template($('#main-content-temp').html(), {}));
 			$(document).foundation('section', 'reflow');
 

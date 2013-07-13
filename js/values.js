@@ -23,9 +23,9 @@
 	};
 
 	Calculator.Values.calcGainRatio = function (wheelDiam, crank, chainring, cog){
-	crank = Calculator.Values.mmToInches(crank);
-	var radRatio = (wheelDiam/2)/crank;
-	return (radRatio * (chainring/cog)).toFixed(1);
+		crank = Calculator.Values.mmToInches(crank);
+		var radRatio = (wheelDiam/2)/crank;
+		return (radRatio * (chainring/cog)).toFixed(1);
 	};
 
 	Calculator.Values.calcSkidPatches = function (chainring, cog, ambi){
@@ -33,6 +33,8 @@
 		var ratio = chainring/cog;
 		var multiple = 0.1;
 
+		//Find the decimal ratio, and multiply it under the lowest even number is found
+		//this is the lowest denominator. 
 		while(Math.floor(multiple) != multiple){
 			factor ++;
 			multiple = ratio * factor;
