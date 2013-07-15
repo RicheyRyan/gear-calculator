@@ -53,7 +53,7 @@
 		return km *= 0.62137;
 	};
 
-	Calculator.Values.loadSizes() = function (){
+	Calculator.Values.loadSizes = function (){
 		var sizes = [{value: 29, name: "29 inch (nominal)"},{value: 28, name: "28 inch (nominal)"},{value: 27, name: "27 inch (nominal)"},{value: 26, name: "26 inch (nominal)"},
 		{value: 29.13, name: "700 X 56 / 56-622 / 29 inch"},{value: 28.94, name: "700 X 50 / 50-622 / 29 inch"},{value: 27.86, name: "700 X 44 / 44-622 / 29 inch"},{value: 27.32, name: "700 X 38 / 38-622"},
 		{value: 27.17, name: "700 X 35 / 35-622"},{value: 27, name: "700 X 32 / 32-622 "},{value: 26.76, name: "700 X 28 / 28-622"},{value: 26.38, name: "700 X 25 / 25-622"},
@@ -67,7 +67,7 @@
 		{value: 16.6, name: "17 x 1 1/4 / 28-369"},{value: 16.88, name: "16 x 1 1/2 / 40-349"},{value: 16.07, name: "16 x 1 3/8 / 35-349"},{value: 13.46, name: "16 x 1.5 / 37-305"}];
 
 		Calculator.Values.wheels.add(sizes);
-	}
+	};
 
 	Calculator.Values.loadSizes();
 
