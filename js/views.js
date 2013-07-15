@@ -70,7 +70,7 @@
 			this.$el.html(html);
 			$('#wheel').children().each(function(index, object){
 				var element = $(object);
-					if(element.html() == "27 inch (nominal)"){
+				if(element.html() == "27 inch (nominal)"){
 					element.attr("selected", "selected");
 				}
 			});
@@ -182,24 +182,30 @@
 
 		render: function () {
 			//Calculate the equivalent cadences within 1 gear inch.
-			var chainring = Calculator.Values.profile.attributes.chainring;
-			var cog = Calculator.Values.profile.attributes.cog;
+			var originalChainring = Calculator.Values.profile.attributes.chainring;
+			var originalCog = Calculator.Values.profile.attributes.cog;
 			var wheel = Calculator.Values.profile.attributes.wheel;
 
-			var inches = Calculator.Values.calcGearInches(wheel, chainring, cog);
-			var min = Calculator.Values.chainring.attributes.minTeeth;
-			var max = Calculator.Values.chainring.attributes.maxTeeth;
-			var ratios = [];
-			var originalRatio = chainring.toString() + "x" + cog.toString();
+			var originalGearInches = Calculator.Values.calcGearInches(wheel, originalChainring, originalCog);
+			var chainringMin = Calculator.Values.chainring.attributes.minTeeth;
+			var chainringMax = Calculator.Values.chainring.attributes.maxTeeth;
 
-			for(var i = min; i <= max; i ++){
-				var newCog = Math.floor(wheel*i/inches);
-				var ratio = i.toString() + "x" + newCog;
-				var newRatio = Calculator.Values.calcGearInches(wheel,i,newCog);
-				console.log("OriginalGearing: " + inches );
-				console.log("newGearing: " + newRatio); 
-				if(newRatio - inches < 1 && ratio != originalRatio){
-					ratios.push(ratio);
+			var cogMin = Calculator.Values.cog.attributes.minTeeth;
+			var cogMax = Calculator.Values.cog.attributes.maxTeeth;
+			var ratios = [];
+			var originalRatio = originalChainring.toString() + "x" + originalCog.toString();
+
+			for(var i = chainringMin; i <= chainringMax; i ++){
+				var newCog = Math.round(wheel*i/originalGearInches);
+				if(newCog > cogMin && newCog < cogMax){
+					var newRatio = i.toString() + "x" + newCog;
+					var newGearInches = Calculator.Values.calcGearInches(wheel,i,newCog);
+					var diff  = originalGearInches - newGearInches;
+
+					if(diff > -1 && diff < 1 && newRatio != originalRatio){
+						ratios.push(newRatio);
+					}
+
 				}
 			}
 
@@ -211,18 +217,18 @@
 		}
 	});
 
-	Calculator.Views.Main = Backbone.View.extend({
-		initialize: function(){
-			this.listenTo(Calculator.Values.profile, "change", this.updatePage);
-			this.render();
-		},
+Calculator.Views.Main = Backbone.View.extend({
+	initialize: function(){
+		this.listenTo(Calculator.Values.profile, "change", this.updatePage);
+		this.render();
+	},
 
-		render: function () {
-			this.$el.html(_.template($('#placeholder-temp').html(), {}));
-			return this;
-		},
+	render: function () {
+		this.$el.html(_.template($('#placeholder-temp').html(), {}));
+		return this;
+	},
 
-		updatePage: function () {
+	updatePage: function () {
 			//Render all the sub views in the main view.
 			this.$el.html(_.template($('#main-content-temp').html(), {}));
 			$(document).foundation('section', 'reflow');
