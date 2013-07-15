@@ -32,6 +32,7 @@
 		var factor = 0;
 		var ratio = chainring/cog;
 		var multiple = 0.1;
+		var patches = 0;
 
 		//Find the decimal ratio, and multiply it under the lowest even number is found
 		//this is the lowest denominator. 
@@ -39,8 +40,14 @@
 			factor ++;
 			multiple = ratio * factor;
 		}
-		return ambi? factor*2 : factor;
-
+		//return ambi? factor*2 : factor;
+		if(multiple % 2 !== 0 && factor % 2 !== 0){
+			patches = factor * 2;
+		}
+		else{
+			patches = factor;
+		}
+		return patches;
 	};
 
 	Calculator.Values.calcCadenceKM = function (metres, cadence){
