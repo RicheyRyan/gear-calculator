@@ -193,10 +193,12 @@
 			var originalRatio = chainring.toString() + "x" + cog.toString();
 
 			for(var i = min; i <= max; i ++){
-				var cog = Math.floor(wheel*i/inches);
-				var ratio = i.toString() + "x" + cog;
-				var newRatio = Calculator.Values.calcGearInches(wheel,i,cog);
-				if((newRatio - inches) < 1 && ratio != originalRatio){
+				var newCog = Math.floor(wheel*i/inches);
+				var ratio = i.toString() + "x" + newCog;
+				var newRatio = Calculator.Values.calcGearInches(wheel,i,newCog);
+				console.log("OriginalGearing: " + inches );
+				console.log("newGearing: " + newRatio); 
+				if(newRatio - inches < 1 && ratio != originalRatio){
 					ratios.push(ratio);
 				}
 			}

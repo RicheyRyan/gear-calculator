@@ -22,6 +22,6 @@
 		}
 	});
 
-	Calculator.Values.router = new Calculator.Routers.GearRouter();
+	//Calculator.Values.router = new Calculator.Routers.GearRouter();
 
 }());
