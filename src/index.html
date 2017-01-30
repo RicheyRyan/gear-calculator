@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+	<title>Gear Calculator</title>
+	<link rel="stylesheet" href="css/foundation.css" />
+	<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+	<div class="row">
+		<div class="large-12 columns">
+			<h2>Gear Calculator</h2>
+			<hr />
+		</div>
+	</div>
+	<!--MAIN BODY-->
+	<div class="row">
+		<!--BEGIN SIDEBAR-->
+		<div class="large-4 columns gear-form">
+			<form id="gear-form">
+				<!--CHAINRING-->
+				<div class ="row form-row">
+					<div class ="small-6 columns ">
+						<label>Chainring Teeth</label>
+					</div>
+					<div class ="small-6 columns">
+						<select name="chainring" id="chainring">
+							<!--WILL BE POPULATED BY TEMPLATE-->
+						</select>
+					</div>
+				</div>
+				<!--COG-->
+				<div class ="row form-row">
+					<div class ="small-6 columns">
+						<label>Cog Teeth</label>
+					</div>
+					<div class ="small-6 columns">
+						<select name="cog" id="cog">
+							<!--WILL BE POPULATED BY TEMPLATE-->
+						</select>
+					</div>
+				</div>
+				<!--WHEEL-->
+				<div class ="row form-row">
+					<div class ="small-6 columns">
+						<label>Wheel Size</label>
+					</div>
+					<div class ="small-6 columns">
+						<select name="wheel" id="wheel">
+							<!--WILL BE POPULATED BY TEMPLATE-->
+						</select>
+					</div>
+				</div>
+				<!--CRANK-->
+				<div class ="row form-row">
+					<div class ="small-6 columns">
+						<label>Crank Length</label>
+					</div>
+					<div class ="small-6 columns">
+						<select name="crank" id="crank">
+							<!--WILL BE POPULATED BY TEMPLATE-->
+						</select>
+					</div>
+				</div>
+				<!--SKID-->
+				<div class="row form-row">
+					<div class ="small-6 columns ">
+						<label>Ambidextrous Skidder?</label>
+					</div>
+					<div class ="small-6 columns">
+						<input type="checkbox" name="skid" value="true">
+					</div>
+				</div>
+
+				<!--CALCULATE-->
+				<div class ="row form-row calculate-button">
+					<!--<p><a type="submit" class="small button calculate">Calculate</a></p>-->
+					<input type="submit" value="Submit" class="button success"></input>
+				</div>
+			</form>
+		</div>
+		<!--END SIDEBAR-->
+
+		<!--BEGIN MAIN CONTENT-->
+		<div class="large-8 columns main-content">
+			<!--WILL BE POPULATED BY TEMPLATE-->
+		</div>
+		<!--END MAIN CONTENT-->
+	</div>
+	<!--MAIN BODY-->
+
+	<!-- TEMPLATES -->
+	<script type="text/template" id="chainring-temp">
+	<option value = "<%- value %>"><%- value %></option>
+	</script>
+
+	<script type="text/template" id="cog-temp">
+	<option value = "<%- value %>"><%- value %></option>
+	</script>
+
+	<script type="text/template" id="wheel-temp">
+	<option value = "<%- value %>"><%- name %></option>
+	</script>
+
+	<script type="text/template" id="crank-temp">
+	<option value = "<%- value %>"><%- value %></option>
+	</script>
+
+	<script type="text/template" id="placeholder-temp">
+	<!--BEGIN NUMBERS-->
+			<div class="row">
+				<div class="panel radius">
+	              <h6>Welcome!</h6>
+	             <p>Fill out the form to see your <a href="http://sheldonbrown.com/gloss_g.html#gearinch">gear inches</a>, <a href="http://sheldonbrown.com/gloss_da-o.html#development">development in metres</a>, <a href="http://sheldonbrown.com/gloss_g.html#gain">gain ratio</a> and <a href="http://sheldonbrown.com/gloss_sa-o.html#skidpatch">skid patches</a> calculated.</p>
+
+	              <p>You will also be
+	              able to see a cadence chart of your speed in miles per hour and kilometres per hour, depending on your RPM, as well as a list of
+	              equivalent gear ratios.</p>
+	              <p> The equilavent gear ratios are within one gear inch higher or lower than the original ratio to allow for a significant range of comparison.</p>
+	            </div>
+			</div>
+			<!--END NUMBERS-->
+	</script>
+
+	<script type="text/template" id="main-content-temp">
+	<!--BEGIN NUMBERS-->
+			<div class="row number-row">
+				<!--WILL BE POPULATED BY TEMPLATE-->
+			</div>
+			<!--END NUMBERS-->
+
+			<!--BEGIN SECTIONS-->
+			<div class="row section-row">
+				<div class="section-container auto" data-section>
+
+					<!--CADENCE CHART-->
+					<section>
+						<p class="title" data-section-title><a href="#panel1">Cadence Chart</a></p>
+						<div class="content" data-section-content>
+							<div class="row">
+								<div class="large-12 columns">
+
+									<table class="chart-table">
+										<thead>
+											<tr>
+												<th><label>Cadence</label></th>
+												<th><label>Km/h</label></th>
+												<th><label>M/h</label></th>
+											</tr>
+										</thead>
+										<tbody id="cadence-table">
+											<!--WILL BE POPULATED BY TEMPLATE-->
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section>
+						<p class="title" data-section-title><a href="#panel2">Equivalent Gearing</a></p>
+						<div class="content" data-section-content>
+							<div class="row">
+								<div class="large-12 columns gearing">
+									<!--WILL BE POPULATED BY TEMPLATE-->
+
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+			<!--END SECTIONS-->
+	</script>
+
+	<script type="text/template" id="numbers-temp">
+		<div class="large-3 columns ">
+			<div class ="row title-field">
+				<h6>Gear Inches</h6>
+			</div>
+			<div class ="row">
+				<div class="panel callout number-field">
+					<h3><%- gearInches %></h3>
+				</div>
+			</div>
+		</div>
+		<div class="large-3 columns ">
+			<div class="row title-field">
+				<h6>Development</h6>
+			</div>
+			<div class ="row">
+				<div class="panel callout number-field">
+					<h3><%- development %></h3>
+				</div>
+			</div>
+		</div>
+		<div class="large-3 columns">
+			<div class="row title-field">
+				<h6>Gain Ratio</h6>
+			</div>
+			<div class ="row">
+				<div class="panel callout number-field">
+					<h3><%- gainRatio %></h3>
+				</div>
+			</div>
+		</div>
+		<div class="large-3 columns">
+			<div class="row title-field">
+				<h6>Skid Patches</h6>
+			</div>
+			<div class ="row">
+				<div class="panel callout number-field">
+					<h3><%- skidPatches %></h3>
+				</div>
+			</div>
+		</div>
+	</script>
+
+	<script type="text/template" id="cadence-temp">
+		<tr>
+			<td><%- cadence %></td>
+			<td><%- km %></td>
+			<td><%- miles %></td>
+		</tr>
+	</script>
+
+	<script type="text/template" id="gearing-temp">
+		<span class="label round"><%- gearing %></span>
+	</script>
+
+  <script src="app.bundle.js"></script>
+</body>
+</html>
