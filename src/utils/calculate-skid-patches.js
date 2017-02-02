@@ -1,15 +1,4 @@
-/**
- * calculateGreatestCommonDivisor - This mplements Euclid's algorithm to get the greatest
- * common divisor of two numbers
- *
- * @param  {Number} x - first
- * @param  {Number} y - second
- * @return {Number} the common divisior
- */
-function calculateGreatestCommonDivisor(x, y) {
-  return y ? calculateGreatestCommonDivisor(y, x % y) : x;
-}
-
+import calculateLowestFraction from './calculate-lowest-fraction';
 
 /**
  * isEven - This checks if a number is even;
@@ -35,9 +24,10 @@ function isEven(x) {
  * @return {Number} the number of skid patches
  */
 export default function ({ chainring, cog, ambidextrousSkidder }) {
-  const greatestCommonDivisor = calculateGreatestCommonDivisor(chainring, cog);
-  const chainringSimplified = chainring / greatestCommonDivisor;
-  const cogSimplified = cog / greatestCommonDivisor;
+  const {
+    numerator: chainringSimplified,
+    denominator: cogSimplified
+  } = calculateLowestFraction(chainring, cog);
 
   const oddChainring = !isEven(chainringSimplified);
 
