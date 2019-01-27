@@ -1,27 +1,35 @@
-##A gear calculator for singlespeed bikes
- 
-A user may calculate:
-* Gear Inches
-* Gain Ratio
-* Development in Metres
-* Skid Patches
-* Speed at various cadences
-* Equivalent Gear Ratios
+# gear-calculator
 
-### Tools
+## Run Project
 
-The page uses Foundation to handle layout and styling and Backbone.js to handle the data and updating the DOM. 
+```sh
+npm install
+npm start
+# in another tab
+npm run webpack
+```
 
-### Page
+After you see the webpack compilation succeed (the `npm run webpack` step), open up `build/index.html` (**no server needed!**). Then modify whichever `.re` file in `src` and refresh the page to see the changes.
 
-The page can be found at [richeyryan.com/gear-calculator](http://richeyryan.com/gear-calculator)
+**For more elaborate ReasonReact examples**, please see https://github.com/reasonml-community/reason-react-example
 
+## Run Project with Server
 
-### License
-Copyright 2013 Richey Ryan
+To run with the webpack development server run `npm run server` and view in the browser at http://localhost:8000. Running in this environment provides hot reloading and support for routing; just edit and save the file and the browser will automatically refresh.
 
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+Note that any hot reload on a route will fall back to the root (`/`), so `ReasonReact.Router.dangerouslyGetInitialUrl` will likely be needed alongside the `ReasonReact.Router.watchUrl` logic to handle routing correctly on hot reload refreshes or simply opening the app at a URL that is not the root.
 
-[http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+To use a port other than 8000 set the `PORT` environment variable (`PORT=8080 npm run server`).
 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. Copyright © 2013 Richey Ryan
+## Build for Production
+
+```sh
+npm run build
+npm run webpack:production
+```
+
+This will replace the development artifact `build/Index.js` for an optimized version as well as copy `src/index.html` into `build/`. You can then deploy the contents of the `build` directory (`index.html` and `Index.js`).
+
+If you make use of routing (via `ReasonReact.Router` or similar logic) ensure that server-side routing handles your routes or that 404's are directed back to `index.html` (which is how the dev server is set up).
+
+**To enable dead code elimination**, change `bsconfig.json`'s `package-specs` `module` from `"commonjs"` to `"es6"`. Then re-run the above 2 commands. This will allow Webpack to remove unused code.
