@@ -61,9 +61,9 @@ let wheelSizes = [
 
 type crankLength = float;
 
-type crankLengths = list(float);
+type crankLengths = list(crankLength);
 
-let crankLengths = [
+let crankLengths: crankLengths = [
   150.,
   152.,
   155.,
