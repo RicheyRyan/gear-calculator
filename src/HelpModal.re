@@ -6,7 +6,6 @@ let make = (_children, ~visible, ~handleClose) => {
     MaterialUi.(
       <Dialog
         open_=visible
-        fullScreen=true
         onEscapeKeyDown={_event => handleClose()}
         onBackdropClick={_event => handleClose()}>
         <DialogTitle>

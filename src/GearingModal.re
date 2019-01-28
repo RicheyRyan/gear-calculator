@@ -4,6 +4,19 @@ let component = ReasonReact.statelessComponent(__MODULE__);
   "Style"({field: ReactDOMRe.Style.make(~marginBottom="1.5em", ())})
 ];
 
+let formatFloat = str => {
+  let len = String.length(str);
+  str.[len - 1]
+  |> (
+    lastChar =>
+      if (lastChar === '.') {
+        String.sub(str, 0, len - 1);
+      } else {
+        str;
+      }
+  );
+};
+
 let make = (_children, ~visible, ~handleClose) => {
   ...component,
   render: _self =>
@@ -11,7 +24,10 @@ let make = (_children, ~visible, ~handleClose) => {
       ...{classes =>
         MaterialUi.(
           <>
-            <Dialog open_=visible>
+            <Dialog
+              open_=visible
+              onEscapeKeyDown={_event => handleClose()}
+              onBackdropClick={_event => handleClose()}>
               <DialogTitle>
                 {ReasonReact.string("Enter your details")}
               </DialogTitle>
@@ -47,11 +63,11 @@ let make = (_children, ~visible, ~handleClose) => {
                 </Select>
                 <InputLabel> {ReasonReact.string("Wheel Size")} </InputLabel>
                 <Select
-                  value={`Float(27.0)}
+                  value={`String("27-nom")}
                   fullWidth=true
                   className={classes.field}>
-                  {Belt.List.map(GearingValues.wheelSizes, ({value, name}) =>
-                     <MenuItem value={`Float(value)}>
+                  {Belt.List.map(GearingValues.wheelSizes, ({name, key}) =>
+                     <MenuItem value={`String(key)}>
                        <em> {name |> ReasonReact.string} </em>
                      </MenuItem>
                    )}
@@ -66,7 +82,10 @@ let make = (_children, ~visible, ~handleClose) => {
                   {Belt.List.map(GearingValues.crankLengths, length =>
                      <MenuItem value={`Float(length)}>
                        <em>
-                         {length |> string_of_float |> ReasonReact.string}
+                         {length
+                          |> string_of_float
+                          |> formatFloat
+                          |> ReasonReact.string}
                        </em>
                      </MenuItem>
                    )}
@@ -77,7 +96,7 @@ let make = (_children, ~visible, ~handleClose) => {
                 <Switch checked={`Bool(true)} color=`Primary />
               </DialogContent>
               <DialogActions>
-                <Button onClick=handleClose color=`Primary>
+                <Button onClick={_event => handleClose()} color=`Primary>
                   {ReasonReact.string("Ok")}
                 </Button>
               </DialogActions>
