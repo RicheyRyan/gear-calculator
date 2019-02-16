@@ -51,6 +51,14 @@ let make = (_children, ~visible, ~handleClose) => {
           handleClose();
         },
       )
+    | UpdateChainringTeeth(chainringTeeth) =>
+      ReasonReact.Update({...state, chainringTeeth})
+    | UpdateCogTeeth(cogTeeth) => ReasonReact.Update({...state, cogTeeth})
+    | UpdateWheelSize(wheelSize) => ReasonReact.Update({...state, wheelSize})
+    | UpdateCrankLength(crankLength) =>
+      ReasonReact.Update({...state, crankLength})
+    | UpdateAmbidextrousSkidder(ambidextrousSkidder) =>
+      ReasonReact.Update({...state, ambidextrousSkidder})
     },
   render: self =>
     <Style>
@@ -61,87 +69,119 @@ let make = (_children, ~visible, ~handleClose) => {
               open_=visible
               onEscapeKeyDown={_event => handleClose()}
               onBackdropClick={_event => handleClose()}>
-              <DialogTitle>
-                {ReasonReact.string("Enter your details")}
-              </DialogTitle>
-              <DialogContent>
-                <DialogContentText paragraph=true>
-                  {ReasonReact.string(
-                     "Enter your component details below to calculate your gearing.",
-                   )}
-                </DialogContentText>
-                <InputLabel> {ReasonReact.string("Chainring")} </InputLabel>
-                <Select
-                  value={`Int(self.state.chainringTeeth)}
-                  fullWidth=true
-                  className={classes.field}>
-                  {Belt.List.map(GearingValues.chainringTeeth, teeth =>
-                     <MenuItem value={`Int(teeth)}>
-                       <em>
-                         {teeth |> string_of_int |> ReasonReact.string}
-                       </em>
-                     </MenuItem>
-                   )}
-                </Select>
-                <InputLabel> {ReasonReact.string("Cog")} </InputLabel>
-                <Select
-                  value={`Int(self.state.cogTeeth)}
-                  fullWidth=true
-                  className={classes.field}>
-                  {Belt.List.map(GearingValues.cogTeeth, teeth =>
-                     <MenuItem value={`Int(teeth)}>
-                       <em>
-                         {teeth |> string_of_int |> ReasonReact.string}
-                       </em>
-                     </MenuItem>
-                   )}
-                </Select>
-                <InputLabel> {ReasonReact.string("Wheel Size")} </InputLabel>
-                <Select
-                  value={`String(self.state.wheelSize)}
-                  fullWidth=true
-                  className={classes.field}>
-                  {Belt.List.map(GearingValues.wheelSizes, ({name, key}) =>
-                     <MenuItem value={`String(key)}>
-                       <em> {name |> ReasonReact.string} </em>
-                     </MenuItem>
-                   )}
-                </Select>
-                <InputLabel>
-                  {ReasonReact.string("Crank Length")}
-                </InputLabel>
-                <Select
-                  value={`Float(self.state.crankLength)}
-                  fullWidth=true
-                  className={classes.field}>
-                  {Belt.List.map(GearingValues.crankLengths, length =>
-                     <MenuItem value={`Float(length)}>
-                       <em>
-                         {length
-                          |> string_of_float
-                          |> formatFloat
-                          |> ReasonReact.string}
-                       </em>
-                     </MenuItem>
-                   )}
-                </Select>
-                <InputLabel>
-                  {ReasonReact.string("Ambidextrous Skidder")}
-                </InputLabel>
-                <Switch
-                  checked={`Bool(self.state.ambidextrousSkidder)}
-                  color=`Primary
-                />
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={_e => handleClose()} color=`Primary>
-                  {ReasonReact.string("Cancel")}
-                </Button>
-                <Button
-                  onClick={_e => self.send(SubmitGearing)} color=`Primary>
-                  {ReasonReact.string("Ok")}
-                </Button>
-              </DialogActions>
+              <form>
+                <DialogTitle>
+                  {ReasonReact.string("Enter your details")}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText paragraph=true>
+                    {ReasonReact.string(
+                       "Enter your component details below to calculate your gearing.",
+                     )}
+                  </DialogContentText>
+                  <InputLabel> {ReasonReact.string("Chainring")} </InputLabel>
+                  <Select
+                    value={`Int(self.state.chainringTeeth)}
+                    fullWidth=true
+                    className={classes.field}
+                    onChange={(e, _js) =>
+                      self.send(
+                        UpdateChainringTeeth(
+                          e->ReactEvent.Form.target##value,
+                        ),
+                      )
+                    }>
+                    {Belt.List.map(GearingValues.chainringTeeth, teeth =>
+                       <MenuItem
+                         value={`Int(teeth)} key={teeth->string_of_int}>
+                         <em>
+                           {teeth |> string_of_int |> ReasonReact.string}
+                         </em>
+                       </MenuItem>
+                     )}
+                  </Select>
+                  <InputLabel> {ReasonReact.string("Cog")} </InputLabel>
+                  <Select
+                    value={`Int(self.state.cogTeeth)}
+                    fullWidth=true
+                    className={classes.field}
+                    onChange={(e, _js) =>
+                      self.send(
+                        UpdateCogTeeth(e->ReactEvent.Form.target##value),
+                      )
+                    }>
+                    {Belt.List.map(GearingValues.cogTeeth, teeth =>
+                       <MenuItem
+                         value={`Int(teeth)} key={teeth->string_of_int}>
+                         <em>
+                           {teeth |> string_of_int |> ReasonReact.string}
+                         </em>
+                       </MenuItem>
+                     )}
+                  </Select>
+                  <InputLabel>
+                    {ReasonReact.string("Wheel Size")}
+                  </InputLabel>
+                  <Select
+                    value={`String(self.state.wheelSize)}
+                    fullWidth=true
+                    className={classes.field}
+                    onChange={(e, _js) =>
+                      self.send(
+                        UpdateWheelSize(e->ReactEvent.Form.target##value),
+                      )
+                    }>
+                    {Belt.List.map(GearingValues.wheelSizes, ({name, key}) =>
+                       <MenuItem value={`String(key)} key>
+                         <em> {name |> ReasonReact.string} </em>
+                       </MenuItem>
+                     )}
+                  </Select>
+                  <InputLabel>
+                    {ReasonReact.string("Crank Length")}
+                  </InputLabel>
+                  <Select
+                    value={`Float(self.state.crankLength)}
+                    fullWidth=true
+                    className={classes.field}
+                    onChange={(e, _js) =>
+                      self.send(
+                        UpdateCrankLength(e->ReactEvent.Form.target##value),
+                      )
+                    }>
+                    {Belt.List.map(GearingValues.crankLengths, length =>
+                       <MenuItem
+                         value={`Float(length)} key={length->string_of_float}>
+                         <em>
+                           {length
+                            |> string_of_float
+                            |> formatFloat
+                            |> ReasonReact.string}
+                         </em>
+                       </MenuItem>
+                     )}
+                  </Select>
+                  <InputLabel>
+                    {ReasonReact.string("Ambidextrous Skidder")}
+                  </InputLabel>
+                  <Switch
+                    checked={`Bool(self.state.ambidextrousSkidder)}
+                    color=`Primary
+                    onChange={(_e, checked) =>
+                      self.send(UpdateAmbidextrousSkidder(checked))
+                    }
+                  />
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={_e => handleClose()} color=`Primary>
+                    {ReasonReact.string("Cancel")}
+                  </Button>
+                  <Button
+                    onClick={_e => self.send(SubmitGearing)} color=`Primary>
+                    {ReasonReact.string("Ok")}
+                  </Button>
+                </DialogActions>
+              </form>
             </Dialog>
           </>
         )
