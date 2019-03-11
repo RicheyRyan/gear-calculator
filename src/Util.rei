@@ -1,0 +1,1 @@
+let formatFloat: string => string;

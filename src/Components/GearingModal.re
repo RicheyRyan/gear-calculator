@@ -1,10 +1,4 @@
-type state = {
-  chainringTeeth: int,
-  cogTeeth: int,
-  wheelSize: string,
-  crankLength: float,
-  ambidextrousSkidder: bool,
-};
+type state = {gearing: Gearing.t};
 
 type actions =
   | UpdateChainringTeeth(int)
@@ -12,53 +6,76 @@ type actions =
   | UpdateWheelSize(string)
   | UpdateCrankLength(float)
   | UpdateAmbidextrousSkidder(bool)
+  | CloseModal
   | SubmitGearing;
 
 let component = ReasonReact.reducerComponent(__MODULE__);
-
-let formatFloat = str => {
-  let len = String.length(str);
-  str.[len - 1]
-  |> (
-    lastChar =>
-      if (lastChar === '.') {
-        String.sub(str, 0, len - 1);
-      } else {
-        str;
-      }
-  );
-};
 
 [%mui.withStyles
   "Style"({field: ReactDOMRe.Style.make(~marginBottom="1.5em", ())})
 ];
 
-let make = (_children, ~visible, ~handleClose) => {
-  ...component,
-  initialState: () => {
+let defaultState = {
+  gearing: {
+    createdAt: Js.Date.make(),
     chainringTeeth: 46,
     cogTeeth: 16,
     wheelSize: "27-nom",
     crankLength: 165.,
     ambidextrousSkidder: false,
   },
-  reducer: (action, state: state) =>
+};
+
+let make = (_children, ~visible, ~handleClose, ~addGearing) => {
+  ...component,
+  initialState: () => defaultState,
+  reducer: (action, state) =>
     switch (action) {
     | SubmitGearing =>
-      ReasonReact.SideEffects(
+      ReasonReact.UpdateWithSideEffects(
+        defaultState,
         _self => {
-          Js.log("hello");
+          addGearing(state.gearing);
           handleClose();
         },
       )
+    | CloseModal =>
+      ReasonReact.UpdateWithSideEffects(defaultState, _self => handleClose())
     | UpdateChainringTeeth(chainringTeeth) =>
-      ReasonReact.Update({...state, chainringTeeth})
-    | UpdateCogTeeth(cogTeeth) => ReasonReact.Update({...state, cogTeeth})
-    | UpdateWheelSize(wheelSize) => ReasonReact.Update({...state, wheelSize})
+      ReasonReact.Update({
+        gearing: {
+          ...state.gearing,
+          chainringTeeth,
+        },
+      })
+    | UpdateCogTeeth(cogTeeth) =>
+      ReasonReact.Update({
+        gearing: {
+          ...state.gearing,
+          cogTeeth,
+        },
+      })
+    | UpdateWheelSize(wheelSize) =>
+      ReasonReact.Update({
+        gearing: {
+          ...state.gearing,
+          wheelSize,
+        },
+      })
     | UpdateCrankLength(crankLength) =>
-      ReasonReact.Update({...state, crankLength})
+      ReasonReact.Update({
+        gearing: {
+          ...state.gearing,
+          crankLength,
+        },
+      })
     | UpdateAmbidextrousSkidder(ambidextrousSkidder) =>
-      ReasonReact.Update({...state, ambidextrousSkidder})
+      ReasonReact.Update({
+        gearing: {
+          ...state.gearing,
+          ambidextrousSkidder,
+        },
+      })
     },
   render: self =>
     <Style>
@@ -67,8 +84,8 @@ let make = (_children, ~visible, ~handleClose) => {
           <>
             <Dialog
               open_=visible
-              onEscapeKeyDown={_event => handleClose()}
-              onBackdropClick={_event => handleClose()}>
+              onEscapeKeyDown={_e => self.send(CloseModal)}
+              onBackdropClick={_e => self.send(CloseModal)}>
               <form>
                 <DialogTitle>
                   {ReasonReact.string("Enter your details")}
@@ -81,10 +98,10 @@ let make = (_children, ~visible, ~handleClose) => {
                   </DialogContentText>
                   <InputLabel> {ReasonReact.string("Chainring")} </InputLabel>
                   <Select
-                    value={`Int(self.state.chainringTeeth)}
+                    value={`Int(self.state.gearing.chainringTeeth)}
                     fullWidth=true
                     className={classes.field}
-                    onChange={(e, _js) =>
+                    onChange={(e, _child) =>
                       self.send(
                         UpdateChainringTeeth(
                           e->ReactEvent.Form.target##value,
@@ -102,10 +119,10 @@ let make = (_children, ~visible, ~handleClose) => {
                   </Select>
                   <InputLabel> {ReasonReact.string("Cog")} </InputLabel>
                   <Select
-                    value={`Int(self.state.cogTeeth)}
+                    value={`Int(self.state.gearing.cogTeeth)}
                     fullWidth=true
                     className={classes.field}
-                    onChange={(e, _js) =>
+                    onChange={(e, _child) =>
                       self.send(
                         UpdateCogTeeth(e->ReactEvent.Form.target##value),
                       )
@@ -123,10 +140,10 @@ let make = (_children, ~visible, ~handleClose) => {
                     {ReasonReact.string("Wheel Size")}
                   </InputLabel>
                   <Select
-                    value={`String(self.state.wheelSize)}
+                    value={`String(self.state.gearing.wheelSize)}
                     fullWidth=true
                     className={classes.field}
-                    onChange={(e, _js) =>
+                    onChange={(e, _child) =>
                       self.send(
                         UpdateWheelSize(e->ReactEvent.Form.target##value),
                       )
@@ -141,10 +158,10 @@ let make = (_children, ~visible, ~handleClose) => {
                     {ReasonReact.string("Crank Length")}
                   </InputLabel>
                   <Select
-                    value={`Float(self.state.crankLength)}
+                    value={`Float(self.state.gearing.crankLength)}
                     fullWidth=true
                     className={classes.field}
-                    onChange={(e, _js) =>
+                    onChange={(e, _child) =>
                       self.send(
                         UpdateCrankLength(e->ReactEvent.Form.target##value),
                       )
@@ -155,7 +172,7 @@ let make = (_children, ~visible, ~handleClose) => {
                          <em>
                            {length
                             |> string_of_float
-                            |> formatFloat
+                            |> Util.formatFloat
                             |> ReasonReact.string}
                          </em>
                        </MenuItem>
@@ -165,7 +182,7 @@ let make = (_children, ~visible, ~handleClose) => {
                     {ReasonReact.string("Ambidextrous Skidder")}
                   </InputLabel>
                   <Switch
-                    checked={`Bool(self.state.ambidextrousSkidder)}
+                    checked={`Bool(self.state.gearing.ambidextrousSkidder)}
                     color=`Primary
                     onChange={(_e, checked) =>
                       self.send(UpdateAmbidextrousSkidder(checked))
@@ -173,7 +190,8 @@ let make = (_children, ~visible, ~handleClose) => {
                   />
                 </DialogContent>
                 <DialogActions>
-                  <Button onClick={_e => handleClose()} color=`Primary>
+                  <Button
+                    onClick={_e => self.send(CloseModal)} color=`Primary>
                     {ReasonReact.string("Cancel")}
                   </Button>
                   <Button

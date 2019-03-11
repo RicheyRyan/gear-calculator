@@ -4,7 +4,7 @@ let component = ReasonReact.statelessComponent(__MODULE__);
   "Style"({heading: ReactDOMRe.Style.make(~flexGrow="1", ())})
 ];
 
-let make = (~onAddClick, ~onHelpClick, _children) => {
+let make = (~onHelpClick, _children) => {
   ...component,
   render: _self => {
     MaterialUi.(
@@ -18,10 +18,7 @@ let make = (~onAddClick, ~onHelpClick, _children) => {
                 {ReasonReact.string("Gear Calculator")}
               </Typography>
               <IconButton color=`Inherit onClick=onHelpClick>
-                <MaterialUi_Icons icon=`Help />
-              </IconButton>
-              <IconButton color=`Inherit onClick=onAddClick>
-                <MaterialUi_Icons icon=`Add />
+                <MscharleyBsMaterialUiIcons.Help.Filled />
               </IconButton>
             </Toolbar>
           </AppBar>

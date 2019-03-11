@@ -8,8 +8,6 @@ let make = _children => {
   ...component,
   render: _self =>
     <Style>
-      ...{classes =>
-        <MaterialUi_Icons icon=`Settings className={classes.logo} />
-      }
+      ...{classes => <MscharleyBsMaterialUiIcons.Settings.Filled />}
     </Style>,
 };

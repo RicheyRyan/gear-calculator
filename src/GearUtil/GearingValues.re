@@ -1,19 +1,10 @@
-type gearTeeth = Belt.List.t(int);
-
-let chainringTeeth: gearTeeth =
+let chainringTeeth: Gearing.gearTeeth =
   Belt.Array.range(28, 59) |> Belt.List.fromArray;
 
-let cogTeeth: gearTeeth = Belt.Array.range(9, 23) |> Belt.List.fromArray;
+let cogTeeth: Gearing.gearTeeth =
+  Belt.Array.range(9, 23) |> Belt.List.fromArray;
 
-type wheel = {
-  name: string,
-  value: float,
-  key: string,
-};
-
-type wheelSizes = list(wheel);
-
-let wheelSizes = [
+let wheelSizes: Gearing.wheelSizes = [
   {value: 29., name: "29 inch (nominal)", key: "29-nom"},
   {value: 28., name: "28 inch (nominal)", key: "28-nom"},
   {value: 27., name: "27 inch (nominal)", key: "27-nom"},
@@ -59,11 +50,7 @@ let wheelSizes = [
   {value: 13.46, name: "16 x 1.5 / 37-305", key: "37-305"},
 ];
 
-type crankLength = float;
-
-type crankLengths = list(crankLength);
-
-let crankLengths: crankLengths = [
+let crankLengths: Gearing.crankLengths = [
   150.,
   152.,
   155.,
