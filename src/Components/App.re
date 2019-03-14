@@ -45,6 +45,20 @@ let make = _children => {
               <Grid item=true xs=V12 md=V3>
                 <GearList gearings={self.state.gearings} dimensions />
               </Grid>
+              <GearCalculator
+                gearing={
+                  chainringTeeth: 46.,
+                  cogTeeth: 16.,
+                  ambidextrousSkidder: false,
+                  createdAt: Js.Date.make(),
+                  wheelSize: 27.,
+                  crankLength: 165.,
+                }
+                render={d => {
+                  Js.log(d);
+                  ReasonReact.null;
+                }}
+              />
               <Grid item=true xs=V9> {ReasonReact.string("hello")} </Grid>
             </Grid>
           )

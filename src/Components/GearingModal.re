@@ -1,9 +1,9 @@
 type state = {gearing: Gearing.t};
 
 type actions =
-  | UpdateChainringTeeth(int)
-  | UpdateCogTeeth(int)
-  | UpdateWheelSize(string)
+  | UpdateChainringTeeth(float)
+  | UpdateCogTeeth(float)
+  | UpdateWheelSize(float)
   | UpdateCrankLength(float)
   | UpdateAmbidextrousSkidder(bool)
   | CloseModal
@@ -18,9 +18,9 @@ let component = ReasonReact.reducerComponent(__MODULE__);
 let defaultState = {
   gearing: {
     createdAt: Js.Date.make(),
-    chainringTeeth: 46,
-    cogTeeth: 16,
-    wheelSize: "27-nom",
+    chainringTeeth: 46.,
+    cogTeeth: 16.,
+    wheelSize: 27.,
     crankLength: 165.,
     ambidextrousSkidder: false,
   },
@@ -98,7 +98,7 @@ let make = (_children, ~visible, ~handleClose, ~addGearing) => {
                   </DialogContentText>
                   <InputLabel> {ReasonReact.string("Chainring")} </InputLabel>
                   <Select
-                    value={`Int(self.state.gearing.chainringTeeth)}
+                    value={`Float(self.state.gearing.chainringTeeth)}
                     fullWidth=true
                     className={classes.field}
                     onChange={(e, _child) =>
@@ -110,16 +110,16 @@ let make = (_children, ~visible, ~handleClose, ~addGearing) => {
                     }>
                     {Belt.List.map(GearingValues.chainringTeeth, teeth =>
                        <MenuItem
-                         value={`Int(teeth)} key={teeth->string_of_int}>
+                         value={`Float(teeth)} key={teeth->string_of_float}>
                          <em>
-                           {teeth |> string_of_int |> ReasonReact.string}
+                           {teeth |> string_of_float |> ReasonReact.string}
                          </em>
                        </MenuItem>
                      )}
                   </Select>
                   <InputLabel> {ReasonReact.string("Cog")} </InputLabel>
                   <Select
-                    value={`Int(self.state.gearing.cogTeeth)}
+                    value={`Float(self.state.gearing.cogTeeth)}
                     fullWidth=true
                     className={classes.field}
                     onChange={(e, _child) =>
@@ -129,9 +129,9 @@ let make = (_children, ~visible, ~handleClose, ~addGearing) => {
                     }>
                     {Belt.List.map(GearingValues.cogTeeth, teeth =>
                        <MenuItem
-                         value={`Int(teeth)} key={teeth->string_of_int}>
+                         value={`Float(teeth)} key={teeth->string_of_float}>
                          <em>
-                           {teeth |> string_of_int |> ReasonReact.string}
+                           {teeth |> string_of_float |> ReasonReact.string}
                          </em>
                        </MenuItem>
                      )}
@@ -140,7 +140,7 @@ let make = (_children, ~visible, ~handleClose, ~addGearing) => {
                     {ReasonReact.string("Wheel Size")}
                   </InputLabel>
                   <Select
-                    value={`String(self.state.gearing.wheelSize)}
+                    value={`Float(self.state.gearing.wheelSize)}
                     fullWidth=true
                     className={classes.field}
                     onChange={(e, _child) =>
@@ -148,8 +148,9 @@ let make = (_children, ~visible, ~handleClose, ~addGearing) => {
                         UpdateWheelSize(e->ReactEvent.Form.target##value),
                       )
                     }>
-                    {Belt.List.map(GearingValues.wheelSizes, ({name, key}) =>
-                       <MenuItem value={`String(key)} key>
+                    {Belt.List.map(
+                       GearingValues.wheelSizes, ({name, key, value}) =>
+                       <MenuItem value={`Float(value)} key>
                          <em> {name |> ReasonReact.string} </em>
                        </MenuItem>
                      )}

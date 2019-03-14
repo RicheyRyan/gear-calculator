@@ -1,8 +1,12 @@
 let chainringTeeth: Gearing.gearTeeth =
-  Belt.Array.range(28, 59) |> Belt.List.fromArray;
+  Belt.Array.range(28, 59)
+  ->Belt.List.fromArray
+  ->Belt.List.map(i => i->float_of_int);
 
 let cogTeeth: Gearing.gearTeeth =
-  Belt.Array.range(9, 23) |> Belt.List.fromArray;
+  Belt.Array.range(9, 23)
+  ->Belt.List.fromArray
+  ->Belt.List.map(i => i->float_of_int);
 
 let wheelSizes: Gearing.wheelSizes = [
   {value: 29., name: "29 inch (nominal)", key: "29-nom"},

@@ -13,7 +13,9 @@ module Distance = {
     metre: float,
     km: float,
     mile: float,
-  } /* TODO: double check all these ratios */;
+  };
+
+  // TODO: double check all these ratios
   let mm = {
     mm: 1.,
     cm: 1000.,
