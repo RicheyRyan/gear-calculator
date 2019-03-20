@@ -36,19 +36,22 @@ let make = _children => {
       ReasonReact.Update({...state, selectedGear: Some(gearing)})
     },
   render: self =>
-    <>
-      <Header onHelpClick={_event => self.send(ModalOpen(Help))} />
-      <HelpModal
-        visible={self.state.modal === Help}
-        handleClose={_event => self.send(ModalClose)}
-      />
-      <GearingModal
-        visible={self.state.modal === Gearing}
-        handleClose={_event => self.send(ModalClose)}
-        addGearing={gearing => self.send(AddGearing(gearing))}
-      />
-      <WindowSize
-        render={dimensions =>
+    <WindowSize
+      render={dimensions => {
+        let isMobile = dimensions.width < 768;
+        <>
+          <Header onHelpClick={_event => self.send(ModalOpen(Help))} />
+          <HelpModal
+            visible={self.state.modal === Help}
+            fullScreen=isMobile
+            handleClose={_event => self.send(ModalClose)}
+          />
+          <GearingModal
+            visible={self.state.modal === Gearing}
+            fullScreen=isMobile
+            handleClose={_event => self.send(ModalClose)}
+            addGearing={gearing => self.send(AddGearing(gearing))}
+          />
           MaterialUi.(
             <Grid container=true spacing=V0>
               <Grid item=true xs=V12 md=V3>
@@ -81,8 +84,8 @@ let make = _children => {
               />
             </Grid>
           )
-        }
-      />
-      <AddNewButton onClick={_event => self.send(ModalOpen(Gearing))} />
-    </>,
+          <AddNewButton onClick={_event => self.send(ModalOpen(Gearing))} />
+        </>;
+      }}
+    />,
 };

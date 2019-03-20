@@ -1,11 +1,12 @@
 let component = ReasonReact.statelessComponent(__MODULE__);
 
-let make = (_children, ~visible, ~handleClose) => {
+let make = (_children, ~visible, ~handleClose, ~fullScreen) => {
   ...component,
   render: _self =>
     MaterialUi.(
       <Dialog
         open_=visible
+        fullScreen
         onEscapeKeyDown={_event => handleClose()}
         onBackdropClick={_event => handleClose()}>
         <DialogTitle>

@@ -26,7 +26,7 @@ let getDefaultState = () => {
   },
 };
 
-let make = (_children, ~visible, ~handleClose, ~addGearing) => {
+let make = (_children, ~visible, ~handleClose, ~addGearing, ~fullScreen) => {
   ...component,
   initialState: getDefaultState,
   reducer: (action, state) =>
@@ -87,6 +87,7 @@ let make = (_children, ~visible, ~handleClose, ~addGearing) => {
           <>
             <Dialog
               open_=visible
+              fullScreen
               onEscapeKeyDown={_e => self.send(CloseModal)}
               onBackdropClick={_e => self.send(CloseModal)}>
               <form>
