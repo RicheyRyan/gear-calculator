@@ -15,9 +15,9 @@ let component = ReasonReact.reducerComponent(__MODULE__);
   "Style"({field: ReactDOMRe.Style.make(~marginBottom="1.5em", ())})
 ];
 
-let defaultState = {
+let getDefaultState = () => {
   gearing: {
-    createdAt: Js.Date.make(),
+    createdAt: Js.Date.now()->truncate,
     chainringTeeth: 46.,
     cogTeeth: 16.,
     wheelSize: 27.,
@@ -28,19 +28,22 @@ let defaultState = {
 
 let make = (_children, ~visible, ~handleClose, ~addGearing) => {
   ...component,
-  initialState: () => defaultState,
+  initialState: getDefaultState,
   reducer: (action, state) =>
     switch (action) {
     | SubmitGearing =>
       ReasonReact.UpdateWithSideEffects(
-        defaultState,
+        getDefaultState(),
         _self => {
           addGearing(state.gearing);
           handleClose();
         },
       )
     | CloseModal =>
-      ReasonReact.UpdateWithSideEffects(defaultState, _self => handleClose())
+      ReasonReact.UpdateWithSideEffects(
+        getDefaultState(),
+        _self => handleClose(),
+      )
     | UpdateChainringTeeth(chainringTeeth) =>
       ReasonReact.Update({
         gearing: {

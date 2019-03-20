@@ -1,5 +1,5 @@
 type t = {
-  createdAt: Js.Date.t,
+  createdAt: int,
   chainringTeeth: float,
   cogTeeth: float,
   wheelSize: float,

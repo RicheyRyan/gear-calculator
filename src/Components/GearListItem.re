@@ -3,7 +3,7 @@ let component = ReasonReact.statelessComponent(__MODULE__);
 let label = ({chainringTeeth, cogTeeth}: Gearing.t) =>
   {j|$chainringTeeth x $cogTeeth|j}->ReasonReact.string;
 
-let make = (~gear, _children) => {
+let make = (~gear: Gearing.t, _children) => {
   ...component,
   render: _self => {
     MaterialUi.(

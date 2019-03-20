@@ -22,7 +22,13 @@ let make = _children => {
   reducer: (action, state: state) =>
     switch (action) {
     | AddGearing(gearing) =>
-      ReasonReact.Update({...state, gearings: state.gearings @ [gearing]})
+      ReasonReact.Update({
+        ...state,
+        gearings: state.gearings @ [gearing],
+        selectedGear:
+          List.length(state.gearings) > 1 ?
+            state.selectedGear : Some(gearing),
+      })
     | ModalOpen(modal) => ReasonReact.Update({...state, modal})
     | ModalClose => ReasonReact.Update({...state, modal: None})
     },
@@ -46,20 +52,25 @@ let make = _children => {
                 <GearList gearings={self.state.gearings} dimensions />
               </Grid>
               <GearCalculator
-                gearing={
-                  chainringTeeth: 46.,
-                  cogTeeth: 16.,
-                  ambidextrousSkidder: false,
-                  createdAt: Js.Date.make(),
-                  wheelSize: 27.,
-                  crankLength: 165.,
+                gearing=?{self.state.selectedGear}
+                render={details =>
+                  <Grid item=true xs=V9>
+                    {switch (self.state.selectedGear) {
+                     | Some(gearing) =>
+                       <>
+                         {ReasonReact.string(
+                            gearing.wheelSize->string_of_float,
+                          )}
+                         {ReasonReact.string(
+                            details.gearInches->string_of_float,
+                          )}
+                       </>
+                     | None =>
+                       ReasonReact.string("Create a gear to get started")
+                     }}
+                  </Grid>
                 }
-                render={d => {
-                  Js.log(d);
-                  ReasonReact.null;
-                }}
               />
-              <Grid item=true xs=V9> {ReasonReact.string("hello")} </Grid>
             </Grid>
           )
         }

@@ -12,7 +12,11 @@ let label = ({chainringTeeth, cogTeeth}: Gearing.t) =>
   {j|$chainringTeeth x $cogTeeth|j}->ReasonReact.string;
 
 let listGears = (gearings: list(Gearing.t)) =>
-  List.map((gear: Gearing.t) => <GearListItem gear />, gearings)
+  List.map(
+    (gear: Gearing.t) =>
+      <GearListItem gear key={gear.createdAt->string_of_int} />,
+    gearings,
+  )
   |> Array.of_list
   |> ReasonReact.array;
 
