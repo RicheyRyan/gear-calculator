@@ -3,12 +3,12 @@ let component = ReasonReact.statelessComponent(__MODULE__);
 let label = ({chainringTeeth, cogTeeth}: Gearing.t) =>
   {j|$chainringTeeth x $cogTeeth|j}->ReasonReact.string;
 
-let make = (~gear: Gearing.t, _children) => {
+let make = (~gear: Gearing.t, ~onClick, ~selected, _children) => {
   ...component,
   render: _self => {
     MaterialUi.(
       <>
-        <ListItem button=true>
+        <ListItem button=true onClick selected>
           <ListItemText primary={label(gear)} />
         </ListItem>
         <Divider />

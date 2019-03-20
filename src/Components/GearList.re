@@ -11,10 +11,20 @@ let getSectionHeight = windowHeight => {
 let label = ({chainringTeeth, cogTeeth}: Gearing.t) =>
   {j|$chainringTeeth x $cogTeeth|j}->ReasonReact.string;
 
-let listGears = (gearings: list(Gearing.t)) =>
+let listGears = (gearings: list(Gearing.t), selectedGear, onSelectItem) =>
   List.map(
     (gear: Gearing.t) =>
-      <GearListItem gear key={gear.createdAt->string_of_int} />,
+      <GearListItem
+        gear
+        selected={
+          switch (selectedGear) {
+          | Some(g) => g === gear
+          | None => false
+          }
+        }
+        key={gear.createdAt->string_of_int}
+        onClick={_event => onSelectItem(gear)}
+      />,
     gearings,
   )
   |> Array.of_list
@@ -25,7 +35,13 @@ let emptyList = l => List.length(l) === 0;
 let component = ReasonReact.statelessComponent(__MODULE__);
 
 let make =
-    (~dimensions: Window.dimensions, ~gearings: list(Gearing.t), _children) => {
+    (
+      ~dimensions: Window.dimensions,
+      ~gearings: list(Gearing.t),
+      ~selectedGear: option(Gearing.t),
+      ~onSelectItem,
+      _children,
+    ) => {
   ...component,
   render: _self =>
     MaterialUi.(
@@ -48,7 +64,8 @@ let make =
               (),
             )}>
             {emptyList(gearings) ?
-               <GearListItem.NoItems /> : listGears(gearings)}
+               <GearListItem.NoItems /> :
+               listGears(gearings, selectedGear, onSelectItem)}
           </List>
         }
       </Style>

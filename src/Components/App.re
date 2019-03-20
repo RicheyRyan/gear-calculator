@@ -12,6 +12,7 @@ type state = {
 type action =
   | AddGearing(Gearing.t)
   | ModalOpen(modal)
+  | SelectItem(Gearing.t)
   | ModalClose;
 
 let component = ReasonReact.reducerComponent(__MODULE__);
@@ -26,11 +27,13 @@ let make = _children => {
         ...state,
         gearings: state.gearings @ [gearing],
         selectedGear:
-          List.length(state.gearings) > 1 ?
-            state.selectedGear : Some(gearing),
+          List.length(state.gearings) < 1 ?
+            Some(gearing) : state.selectedGear,
       })
     | ModalOpen(modal) => ReasonReact.Update({...state, modal})
     | ModalClose => ReasonReact.Update({...state, modal: None})
+    | SelectItem(gearing) =>
+      ReasonReact.Update({...state, selectedGear: Some(gearing)})
     },
   render: self =>
     <>
@@ -49,7 +52,12 @@ let make = _children => {
           MaterialUi.(
             <Grid container=true spacing=V0>
               <Grid item=true xs=V12 md=V3>
-                <GearList gearings={self.state.gearings} dimensions />
+                <GearList
+                  gearings={self.state.gearings}
+                  selectedGear={self.state.selectedGear}
+                  onSelectItem={gearing => self.send(SelectItem(gearing))}
+                  dimensions
+                />
               </Grid>
               <GearCalculator
                 gearing=?{self.state.selectedGear}
