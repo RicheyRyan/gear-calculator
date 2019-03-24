@@ -114,9 +114,9 @@ let make = (_children, ~visible, ~handleClose, ~addGearing, ~fullScreen) => {
                     }>
                     {Belt.List.map(GearingValues.chainringTeeth, teeth =>
                        <MenuItem
-                         value={`Float(teeth)} key={teeth->string_of_float}>
+                         value={`Float(teeth)} key={teeth->Js.Float.toString}>
                          <em>
-                           {teeth |> string_of_float |> ReasonReact.string}
+                           {teeth->Js.Float.toString->ReasonReact.string}
                          </em>
                        </MenuItem>
                      )}
@@ -133,9 +133,9 @@ let make = (_children, ~visible, ~handleClose, ~addGearing, ~fullScreen) => {
                     }>
                     {Belt.List.map(GearingValues.cogTeeth, teeth =>
                        <MenuItem
-                         value={`Float(teeth)} key={teeth->string_of_float}>
+                         value={`Float(teeth)} key={teeth->Js.Float.toString}>
                          <em>
-                           {teeth |> string_of_float |> ReasonReact.string}
+                           {teeth->Js.Float.toString->ReasonReact.string}
                          </em>
                        </MenuItem>
                      )}
@@ -173,12 +173,13 @@ let make = (_children, ~visible, ~handleClose, ~addGearing, ~fullScreen) => {
                     }>
                     {Belt.List.map(GearingValues.crankLengths, length =>
                        <MenuItem
-                         value={`Float(length)} key={length->string_of_float}>
+                         value={`Float(length)}
+                         key={length->Js.Float.toString}>
                          <em>
                            {length
-                            |> string_of_float
-                            |> Util.formatFloat
-                            |> ReasonReact.string}
+                            ->Js.Float.toString
+                            ->Util.formatFloat
+                            ->ReasonReact.string}
                          </em>
                        </MenuItem>
                      )}

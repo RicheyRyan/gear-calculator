@@ -5,11 +5,8 @@ let headerHeight = 64;
 ];
 
 let getSectionHeight = windowHeight => {
-  windowHeight - headerHeight |> string_of_int;
+  (windowHeight - headerHeight)->Js.Int.toString;
 };
-
-let label = ({chainringTeeth, cogTeeth}: Gearing.t) =>
-  {j|$chainringTeeth x $cogTeeth|j}->ReasonReact.string;
 
 let listGears = (gearings: list(Gearing.t), selectedGear, onSelectItem) =>
   List.map(
@@ -22,7 +19,7 @@ let listGears = (gearings: list(Gearing.t), selectedGear, onSelectItem) =>
           | None => false
           }
         }
-        key={gear.createdAt->string_of_int}
+        key={gear.createdAt->Js.Int.toString}
         onClick={_event => onSelectItem(gear)}
       />,
     gearings,
@@ -63,9 +60,9 @@ let make =
               ~backgroundColor="#fff",
               (),
             )}>
-            {emptyList(gearings) ?
-               <GearListItem.NoItems /> :
-               listGears(gearings, selectedGear, onSelectItem)}
+            {emptyList(gearings)
+               ? <GearListItem.NoItems />
+               : listGears(gearings, selectedGear, onSelectItem)}
           </List>
         }
       </Style>

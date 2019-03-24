@@ -27,8 +27,8 @@ let make = _children => {
         ...state,
         gearings: state.gearings @ [gearing],
         selectedGear:
-          List.length(state.gearings) < 1 ?
-            Some(gearing) : state.selectedGear,
+          List.length(state.gearings) < 1
+            ? Some(gearing) : state.selectedGear,
       })
     | ModalOpen(modal) => ReasonReact.Update({...state, modal})
     | ModalClose => ReasonReact.Update({...state, modal: None})
@@ -67,15 +67,7 @@ let make = _children => {
                 render={details =>
                   <Grid item=true xs=V9>
                     {switch (self.state.selectedGear) {
-                     | Some(gearing) =>
-                       <>
-                         {ReasonReact.string(
-                            gearing.wheelSize->string_of_float,
-                          )}
-                         {ReasonReact.string(
-                            details.gearInches->string_of_float,
-                          )}
-                       </>
+                     | Some(gearing) => <GearDetailSection gearing details />
                      | None =>
                        ReasonReact.string("Create a gear to get started")
                      }}

@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 const outputDir = path.join(__dirname, "build/");
 
 const isProd = process.env.NODE_ENV === "production";
@@ -11,6 +12,9 @@ module.exports = {
     path: outputDir,
     filename: "Index.js",
   },
+  // optimization: {
+  //   minimizer: [new TerserPlugin()],
+  // },
   plugins: [
     new HtmlWebpackPlugin({
       template: "src/index.html",

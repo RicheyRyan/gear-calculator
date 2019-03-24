@@ -20,7 +20,7 @@ let createGearing = (gearing: Gearing.t): Gearing.gearDetails => {
 
 let make = (~gearing=?, ~render, _children) => {
   ...component,
-  render: self => {
+  render: _self => {
     let details =
       switch (gearing) {
       | Some(g) => createGearing(g)
