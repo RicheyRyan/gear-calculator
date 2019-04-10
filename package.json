@@ -2,13 +2,14 @@
   "name": "gear-calculator",
   "version": "0.1.0",
   "scripts": {
-    "build": "bsb -make-world",
-    "start": "bsb -make-world -w",
-    "clean": "bsb -clean-world",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "webpack": "webpack -w",
-    "webpack:production": "NODE_ENV=production webpack",
-    "server": "webpack-dev-server"
+    "start": "concurrently -c --kill-others-on-fail 'npm:watch-*'",
+    "build": "yarn build-reason && yarn build-html",
+    "watch-html": "parcel src/index.html",
+    "build-html": "parcel build src/index.html",
+    "watch-reason": "bsb -make-world -w",
+    "build-reason": "bsb -make-world",
+    "clean-reason": "bsb -clean-world",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "BuckleScript"
@@ -24,15 +25,13 @@
     "re-classnames": "^3.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "reason-react": ">=0.4.0",
-    "terser-webpack-plugin": "^1.2.3"
+    "reason-react": ">=0.4.0"
   },
   "devDependencies": {
     "@jsiebern/bs-material-ui-ppx": "^1.0.2",
     "bs-platform": "^5.0.0",
-    "html-webpack-plugin": "^3.2.0",
-    "webpack": "^4.0.1",
-    "webpack-cli": "^3.1.1",
-    "webpack-dev-server": "^3.1.8"
+    "bsb-js": "^1.1.7",
+    "concurrently": "^4.1.0",
+    "parcel-bundler": "^1.12.3"
   }
 }
