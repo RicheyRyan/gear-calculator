@@ -1,35 +1,13 @@
-let component = ReasonReact.statelessComponent(__MODULE__);
-
 let label = ({chainringTeeth, cogTeeth}: Gearing.t) =>
-  {j|$chainringTeeth x $cogTeeth|j}->ReasonReact.string;
+  {j|$chainringTeeth x $cogTeeth|j}->React.string;
 
-let make = (~gear: Gearing.t, ~onClick, ~selected, _children) => {
-  ...component,
-  render: _self => {
-    MaterialUi.(
-      <>
-        <ListItem button=true onClick selected>
-          <ListItemText primary={label(gear)} />
-        </ListItem>
-        <Divider />
-      </>
-    );
-  },
+let make = (~gear: Gearing.t, _onClick, _selected, _children) => {
+    <p>{label(gear)}</p>
 };
 
 module NoItems = {
-  let component = ReasonReact.statelessComponent(__MODULE__);
 
   let make = _children => {
-    ...component,
-    render: _self => {
-      MaterialUi.(
-        <ListItem>
-          <Typography variant=`Subtitle1>
-            {ReasonReact.string("No gears created yet")}
-          </Typography>
-        </ListItem>
-      );
-    },
-  };
+     <p>{React.string("No gears created yet")}</p>
+  }
 };

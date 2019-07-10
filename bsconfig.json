@@ -1,29 +1,23 @@
 {
   "name": "gear-calculator",
   "reason": {
-    "react-jsx": 2
+    "react-jsx": 3
   },
-  "sources": {
+  "sources": [{
     "dir": "src",
     "subdirs": true
-  },
+  }],
   "package-specs": [
     {
       "module": "commonjs",
       "in-source": true
     }
   ],
-  "warnings": {
-    "error": "+101"
-  },
   "suffix": ".bs.js",
   "namespace": true,
   "bs-dependencies": [
-    "reason-react",
-    "@jsiebern/bs-material-ui",
-    "@mscharley/bs-material-ui-icons",
-    "re-classnames"
+    "reason-react"
   ],
-  "ppx-flags": ["./node_modules/@jsiebern/bs-material-ui-ppx/ppx"],
+  "ppx-flags": [],
   "refmt": 3
 }
