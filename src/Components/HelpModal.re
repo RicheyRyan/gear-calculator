@@ -1,3 +1,4 @@
+[@react.component]
 let make = (_children, _visible, _handleClose, _fullScreen) => {
   <div>
             <p>{React.string(

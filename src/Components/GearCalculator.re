@@ -16,6 +16,7 @@ let createGearing = (gearing: Gearing.t): Gearing.gearDetails => {
   cadences: Calculate.generateCadences(gearing),
 };
 
+[@react.component]
 let make = (_gearing, _render, _children) => {
   <p>{React.string("hello")}</p>
 };

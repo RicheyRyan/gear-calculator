@@ -20,4 +20,5 @@ let getDefaultState = () => {
   },
 };
 
+[@react.component]
 let make = (_children, ~visible, ~handleClose, ~addGearing, ~fullScreen) => <p>{React.string("hello")}</p>;

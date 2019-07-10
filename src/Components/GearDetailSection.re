@@ -3,7 +3,7 @@ type state = {value: int};
 type actions =
   | SelectTab(int);
 
-
+[@react.component]
 let make = (_gearing: Gearing.t, ~details: Gearing.gearDetails, _children) => 
   <div>
   {
