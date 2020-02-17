@@ -17,7 +17,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "bs-css": "^9.0.1",
+    "bs-css": "^11.0.0",
     "bulma": "^0.8.0",
     "global": "^4.4.0",
     "parcel": "^1.12.4",
