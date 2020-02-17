@@ -5,7 +5,7 @@
     "start": "concurrently -c --kill-others-on-fail 'npm:watch-*'",
     "build": "yarn build-reason && yarn build-html",
     "watch-html": "parcel src/index.html",
-    "build-html": "parcel build src/index.html",
+    "build-html": "parcel build src/index.html --public-url ./",
     "watch-reason": "bsb -make-world -w",
     "build-reason": "bsb -make-world",
     "clean-reason": "bsb -clean-world",
