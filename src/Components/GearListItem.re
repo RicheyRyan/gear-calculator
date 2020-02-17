@@ -1,15 +1,36 @@
-let label = ({chainringTeeth, cogTeeth}: Gearing.t) =>
-  {j|$chainringTeeth x $cogTeeth|j}->React.string;
+module Styles = {
+  open Css;
 
-[@react.component]
-let make = (~gear: Gearing.t, _onClick, _selected, _children) => {
-    <p>{label(gear)}</p>
+  let viewButton = style([marginRight(px(10))]);
+  let listItem = style([paddingBottom(rem(0.6))]);
 };
 
-module NoItems = {
-
-  [@react.component]
-  let make = _children => {
-     <p>{React.string("No gears created yet")}</p>
-  }
+[@react.component]
+let make = (~isActive=false, ~gearing: Gearing.t, ~handleView, ~handleRemove) => {
+  <li className=Styles.listItem>
+    <Columns>
+      <Column isNarrow=true>
+        <Tags hasAddons=true>
+          <Tag isLarge=true isInfo=true>
+            {gearing.chainringTeeth->Js.Float.toString->React.string}
+          </Tag>
+          <Tag isLarge=true> {React.string("x")} </Tag>
+          <Tag isLarge=true isInfo=true>
+            {gearing.cogTeeth->Js.Float.toString->React.string}
+          </Tag>
+        </Tags>
+      </Column>
+      <Column>
+        <Button
+          isSuccess=true
+          className=Styles.viewButton
+          onClick={_ => handleView()}>
+          {React.string("View")}
+        </Button>
+        <Button isDanger=true onClick={_ => handleRemove()}>
+          {React.string("Remove")}
+        </Button>
+      </Column>
+    </Columns>
+  </li>;
 };

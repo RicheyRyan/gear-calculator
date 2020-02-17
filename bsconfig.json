@@ -17,7 +17,8 @@
   ],
   "suffix": ".bs.js",
   "namespace": true,
-  "bs-dependencies": ["reason-react"],
+  "ignored-dirs": ["node_modules"],
+  "bs-dependencies": ["reason-react", "bs-css"],
   "ppx-flags": [],
   "refmt": 3
 }
