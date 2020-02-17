@@ -6,7 +6,14 @@ module Styles = {
 };
 
 [@react.component]
-let make = (~isActive=false, ~gearing: Gearing.t, ~handleView, ~handleRemove) => {
+let make =
+    (
+      ~isActive=false,
+      ~gearing: Gearing.t,
+      ~handleView,
+      ~handleRemove,
+      ~isOnlyItem,
+    ) => {
   <li className=Styles.listItem>
     <Columns>
       <Column isNarrow=true>
@@ -27,9 +34,11 @@ let make = (~isActive=false, ~gearing: Gearing.t, ~handleView, ~handleRemove) =>
           onClick={_ => handleView()}>
           {React.string("View")}
         </Button>
-        <Button isDanger=true onClick={_ => handleRemove()}>
-          {React.string("Remove")}
-        </Button>
+        {isOnlyItem
+           ? React.null
+           : <Button isDanger=true onClick={_ => handleRemove()}>
+               {React.string("Remove")}
+             </Button>}
       </Column>
     </Columns>
   </li>;

@@ -16,26 +16,23 @@ type action =
   | AddGearing(Gearing.t)
   | RemoveGearing(Gearing.t)
   | UpdateGearing(Gearing.t)
-  | SetSelectedGearing(option(int));
+  | SetSelectedGearing(int);
 
 type state = {
   gearings: list(Gearing.t),
-  selected: option(int),
+  selected: int,
 };
 
 let reducer = (state, action) =>
   switch (action) {
   | AddGearing(gearing) =>
     let newGearings = List.concat([state.gearings, [gearing]]);
-    {gearings: newGearings, selected: Some(List.length(newGearings) - 1)};
+    {gearings: newGearings, selected: List.length(newGearings) - 1};
   | RemoveGearing(gearing) =>
-    let newGearings = List.filter(g => g != gearing, state.gearings);
-    let selected =
-      switch (List.length(newGearings)) {
-      | 0 => None
-      | _ => Some(List.length(newGearings) - 1)
-      };
-    {gearings: newGearings, selected};
+    let newGearings =
+      List.length(state.gearings) > 0
+        ? List.filter(g => g != gearing, state.gearings) : state.gearings;
+    {gearings: newGearings, selected: List.length(newGearings) - 1};
   | UpdateGearing(gearing) => {
       ...state,
       gearings:
@@ -53,9 +50,10 @@ let renderGearListItems = (~gearings, ~selected, ~dispatch) => {
       <GearListItem
         key={gearing.createdAt->string_of_int}
         gearing
-        handleView={_ => SetSelectedGearing(Some(i))->dispatch}
+        handleView={_ => SetSelectedGearing(i)->dispatch}
         handleRemove={_ => RemoveGearing(gearing)->dispatch}
-        isActive={Js.Option.getWithDefault(Js.Int.max, selected) == i}
+        isActive={selected == i}
+        isOnlyItem={List.length(gearings) == 1}
       />,
     gearings,
   )
@@ -66,7 +64,7 @@ let renderGearListItems = (~gearings, ~selected, ~dispatch) => {
 [@react.component]
 let make = () => {
   let ({gearings, selected}, dispatch) =
-    React.useReducer(reducer, {gearings: [], selected: None});
+    React.useReducer(reducer, {gearings: [Gearing.make()], selected: 0});
   <>
     <Navbar>
       <h1 className="title has-text-light is-size-4">
@@ -91,25 +89,16 @@ let make = () => {
           </Columns>
           <Columns>
             <Column>
-              {List.length(gearings) === 0
-                 ? <Message isInfo=true isSmall=true>
-                     {React.string("No gearings have been created")}
-                   </Message>
-                 : <MenuList className=Styles.menuList>
-                     {renderGearListItems(~gearings, ~selected, ~dispatch)}
-                   </MenuList>}
+              <MenuList className=Styles.menuList>
+                {renderGearListItems(~gearings, ~selected, ~dispatch)}
+              </MenuList>
             </Column>
           </Columns>
         </Menu>
       </Column>
       <Column>
         <GearCalculator
-          gearing={
-            switch (selected) {
-            | Some(i) => Some(List.nth(gearings, i))
-            | None => None
-            }
-          }
+          gearing={List.nth(gearings, selected)}
           updateGear={gearing => UpdateGearing(gearing)->dispatch}
         />
       </Column>
