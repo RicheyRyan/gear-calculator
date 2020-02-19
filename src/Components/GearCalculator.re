@@ -57,118 +57,115 @@ let make = (~gearing, ~updateGear) => {
   };
 
   <section className=Styles.container>
-    <div className="card">
-      <div className="card-content">
-        <div className="content">
-          <Columns>
-            <Column>
-              <Field label="Chainring">
-                <Select
-                  value={gearing.chainringTeeth->Js.Float.toString}
-                  onChange=updateChainring>
-                  {Belt.List.map(GearingValues.chainringTeeth, tooth =>
-                     <option key={Js.Float.toString(tooth)}>
-                       {Js.Float.toString(tooth)->React.string}
-                     </option>
-                   )
-                   ->Array.of_list
-                   ->React.array}
-                </Select>
-              </Field>
-            </Column>
-            <Column>
-              <Field label="Cog">
-                <Select
-                  value={gearing.cogTeeth->Js.Float.toString}
-                  onChange=updateCog>
-                  {Belt.List.map(
-                     GearingValues.cogTeeth,
-                     tooth => {
-                       let toothString = Js.Float.toString(tooth);
-                       <option value=toothString key=toothString>
-                         toothString->React.string
-                       </option>;
-                     },
-                   )
-                   ->Array.of_list
-                   ->React.array}
-                </Select>
-              </Field>
-            </Column>
-            <Column>
-              <Field label="Wheel size">
-                <Select
-                  value={gearing.wheelSize->Js.Float.toString}
-                  onChange=updateWheelSize>
-                  {Belt.List.map(GearingValues.wheelSizes, wheel =>
-                     <option
-                       value={Js.Float.toString(wheel.value)} key={wheel.key}>
-                       wheel.name->React.string
-                     </option>
-                   )
-                   ->Array.of_list
-                   ->React.array}
-                </Select>
-              </Field>
-            </Column>
-            <Column>
-              <Field label="Crank length">
-                <Select
-                  value={gearing.crankLength->Js.Float.toString}
-                  onChange=updateCrankLength>
-                  {Belt.List.map(
-                     GearingValues.crankLengths,
-                     crank => {
-                       let crankString = crank->Js.Float.toString;
-                       <option value=crankString key=crankString>
-                         crankString->React.string
-                       </option>;
-                     },
-                   )
-                   ->Array.of_list
-                   ->React.array}
-                </Select>
-              </Field>
-            </Column>
-            <Column>
-              <Field label="Ambidextrous Skidder">
-                <Checkbox
-                  onChange=updateAmbidextrousSkidder
-                  checked={gearing.ambidextrousSkidder}
-                />
-              </Field>
-            </Column>
-          </Columns>
-        </div>
-        <hr />
-        <div className="content">
-          <Columns>
-            <Column>
-              <Field label="Gear inches">
-                {Js.Float.toFixedWithPrecision(details.gearInches, ~digits=1)
-                 ->React.string}
-              </Field>
-            </Column>
-            <Column>
-              <Field label="Development">
-                {Js.Float.toFixedWithPrecision(details.development, ~digits=1)
-                 ->React.string}
-              </Field>
-            </Column>
-            <Column>
-              <Field label="Gain ratio">
-                {Js.Float.toFixedWithPrecision(details.gainRatio, ~digits=1)
-                 ->React.string}
-              </Field>
-            </Column>
-            <Column>
-              <Field label="Skid patches">
-                {string_of_int(details.skidPatches)->React.string}
-              </Field>
-            </Column>
-          </Columns>
-        </div>
-      </div>
-    </div>
+    <Card>
+      <Content>
+        <Columns>
+          <Column>
+            <Field label="Chainring">
+              <Select
+                value={gearing.chainringTeeth->Js.Float.toString}
+                onChange=updateChainring>
+                {Belt.List.map(GearingValues.chainringTeeth, tooth =>
+                   <option key={Js.Float.toString(tooth)}>
+                     {Js.Float.toString(tooth)->React.string}
+                   </option>
+                 )
+                 ->Array.of_list
+                 ->React.array}
+              </Select>
+            </Field>
+          </Column>
+          <Column>
+            <Field label="Cog">
+              <Select
+                value={gearing.cogTeeth->Js.Float.toString} onChange=updateCog>
+                {Belt.List.map(
+                   GearingValues.cogTeeth,
+                   tooth => {
+                     let toothString = Js.Float.toString(tooth);
+                     <option value=toothString key=toothString>
+                       toothString->React.string
+                     </option>;
+                   },
+                 )
+                 ->Array.of_list
+                 ->React.array}
+              </Select>
+            </Field>
+          </Column>
+          <Column>
+            <Field label="Wheel size">
+              <Select
+                value={gearing.wheelSize->Js.Float.toString}
+                onChange=updateWheelSize>
+                {Belt.List.map(GearingValues.wheelSizes, wheel =>
+                   <option
+                     value={Js.Float.toString(wheel.value)} key={wheel.key}>
+                     wheel.name->React.string
+                   </option>
+                 )
+                 ->Array.of_list
+                 ->React.array}
+              </Select>
+            </Field>
+          </Column>
+          <Column>
+            <Field label="Crank length">
+              <Select
+                value={gearing.crankLength->Js.Float.toString}
+                onChange=updateCrankLength>
+                {Belt.List.map(
+                   GearingValues.crankLengths,
+                   crank => {
+                     let crankString = crank->Js.Float.toString;
+                     <option value=crankString key=crankString>
+                       crankString->React.string
+                     </option>;
+                   },
+                 )
+                 ->Array.of_list
+                 ->React.array}
+              </Select>
+            </Field>
+          </Column>
+          <Column>
+            <Field label="Ambidextrous Skidder">
+              <Checkbox
+                onChange=updateAmbidextrousSkidder
+                checked={gearing.ambidextrousSkidder}
+              />
+            </Field>
+          </Column>
+        </Columns>
+      </Content>
+      <hr />
+      <Content>
+        <Columns>
+          <Column>
+            <Field label="Gear inches">
+              {Js.Float.toFixedWithPrecision(details.gearInches, ~digits=1)
+               ->React.string}
+            </Field>
+          </Column>
+          <Column>
+            <Field label="Development">
+              {Js.Float.toFixedWithPrecision(details.development, ~digits=1)
+               ->React.string}
+            </Field>
+          </Column>
+          <Column>
+            <Field label="Gain ratio">
+              {Js.Float.toFixedWithPrecision(details.gainRatio, ~digits=1)
+               ->React.string}
+            </Field>
+          </Column>
+          <Column>
+            <Field label="Skid patches">
+              {string_of_int(details.skidPatches)->React.string}
+            </Field>
+          </Column>
+        </Columns>
+      </Content>
+    </Card>
   </section>;
 };
