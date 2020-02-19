@@ -26,4 +26,5 @@ module Helpers = {
   let isMedium = "is-medium";
   let isLarge = "is-large";
   let isFullWidth = "is-fullwidth";
+  let isDelete = "delete";
 };

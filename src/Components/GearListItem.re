@@ -3,6 +3,15 @@ module Styles = {
 
   let viewButton = style([marginRight(px(10))]);
   let listItem = style([paddingBottom(rem(0.6))]);
+  let buttons = style([display(`flex), alignItems(`center)]);
+  let selectionColumn =
+    style([
+      color(hex("3ec46d")),
+      alignSelf(`center),
+      maxWidth(px(30)),
+      fontWeight(`bold),
+      fontSize(em(2.)),
+    ]);
 };
 
 [@react.component]
@@ -16,6 +25,9 @@ let make =
     ) => {
   <li className=Styles.listItem>
     <Columns>
+      <Column className=Styles.selectionColumn>
+        {isActive ? React.string("*") : React.null}
+      </Column>
       <Column isNarrow=true>
         <Tags hasAddons=true>
           <Tag isLarge=true isInfo=true>
@@ -27,7 +39,7 @@ let make =
           </Tag>
         </Tags>
       </Column>
-      <Column>
+      <Column className=Styles.buttons>
         <Button
           isSuccess=true
           className=Styles.viewButton
@@ -36,9 +48,11 @@ let make =
         </Button>
         {isOnlyItem
            ? React.null
-           : <Button isDanger=true onClick={_ => handleRemove()}>
-               {React.string("Remove")}
-             </Button>}
+           : <Button
+               isDelete=true
+               isLarge=true
+               onClick={_ => handleRemove()}
+             />}
       </Column>
     </Columns>
   </li>;

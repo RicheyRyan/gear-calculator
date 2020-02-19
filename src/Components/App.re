@@ -72,7 +72,7 @@ let make = () => {
       </h1>
     </Navbar>
     <Columns>
-      <Column is4=true>
+      <Column is3=true>
         <Menu className=Styles.sidebar>
           <Columns>
             <Column>
