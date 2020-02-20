@@ -166,6 +166,17 @@ let make = (~gearing, ~updateGear) => {
           </Column>
         </Columns>
       </Content>
+      <hr />
+      <Content>
+        <Columns>
+          <Column is6=true>
+            <Label> {React.string("Cadences")} </Label>
+          </Column>
+          <Column is6=true>
+            <Label> {React.string("Equivalent Gears")} </Label>
+          </Column>
+        </Columns>
+      </Content>
     </Card>
   </section>;
 };

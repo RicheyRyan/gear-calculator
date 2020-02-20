@@ -29,15 +29,10 @@ let make =
         {isActive ? React.string("*") : React.null}
       </Column>
       <Column isNarrow=true>
-        <Tags hasAddons=true>
-          <Tag isLarge=true isInfo=true>
-            {gearing.chainringTeeth->Js.Float.toString->React.string}
-          </Tag>
-          <Tag isLarge=true> {React.string("x")} </Tag>
-          <Tag isLarge=true isInfo=true>
-            {gearing.cogTeeth->Js.Float.toString->React.string}
-          </Tag>
-        </Tags>
+        <GearRatio
+          chainringTeeth={gearing.chainringTeeth}
+          cogTeeth={gearing.cogTeeth}
+        />
       </Column>
       <Column className=Styles.buttons>
         <Button
