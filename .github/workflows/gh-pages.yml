@@ -9,6 +9,9 @@ jobs:
   deploy:
     runs-on: ubuntu-18.04
     steps:
+      - name: Setup Python environment
+        uses: actions/setup-python@v1.1.1
+
       - uses: actions/checkout@v1
 
       - uses: borales/actions-yarn@v2.0.0
