@@ -7,6 +7,11 @@
     {
       "dir": "src",
       "subdirs": true
+    },
+    {
+      "dir": "__tests__",
+      "subdirs": true,
+      "type": "dev"
     }
   ],
   "package-specs": [
@@ -19,6 +24,7 @@
   "namespace": true,
   "ignored-dirs": ["node_modules"],
   "bs-dependencies": ["reason-react", "bs-css"],
+  "bs-dev-dependencies": ["@glennsl/bs-jest"],
   "ppx-flags": [],
   "refmt": 3
 }
