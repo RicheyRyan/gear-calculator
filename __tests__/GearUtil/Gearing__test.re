@@ -48,4 +48,19 @@ describe("Gearing", () => {
       |> toBe(77.625)
     )
   });
+  describe("generateCadences", () => {
+    test("Input of gearing results the expect array of cadences", () =>
+      expect(
+        Gearing.generateCadences({
+          createdAt: Js.Date.now()->int_of_float,
+          chainringTeeth: 46.,
+          cogTeeth: 16.,
+          wheelSize: 27.,
+          crankLength: 165.,
+          ambidextrousSkidder: false,
+        }),
+      )
+      |> toMatchSnapshot
+    )
+  });
 });
