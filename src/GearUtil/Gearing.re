@@ -126,15 +126,13 @@ let generateCadences = (gearing): list(cadence) => {
   let development = metresOfDevelopment(gearing);
   let rpms =
     Belt.Array.range(1, 15)->Belt.Array.map(i => float_of_int(i * 10));
-  let cadenceArr =
-    Belt.Array.map(
-      rpms,
-      rpm => {
-        let kmph = cadenceToSpeedKm(rpm, development);
-        let mph = cadenceToSpeedMiles(rpm, development);
-        let cadence: cadence = {rpm, kmph, mph};
-        cadence;
-      },
-    );
-  Array.to_list(cadenceArr);
+  Belt.Array.map(
+    rpms,
+    rpm => {
+      let kmph = cadenceToSpeedKm(rpm, development);
+      let mph = cadenceToSpeedMiles(rpm, development);
+      {rpm, kmph, mph};
+    },
+  )
+  ->Array.to_list;
 };
