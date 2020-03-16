@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Gearing generateCadences Input of gearing results the expect array of cadences 1`] = `
+Array [
+  Object {
+    "kmph": 3.716519817159993,
+    "mph": 2.309337635308522,
+    "rpm": 10,
+  },
+  Array [
+    Object {
+      "kmph": 7.433039634319986,
+      "mph": 4.618675270617044,
+      "rpm": 20,
+    },
+    Array [
+      Object {
+        "kmph": 11.149559451479979,
+        "mph": 6.928012905925566,
+        "rpm": 30,
+      },
+      Array [
+        Object {
+          "kmph": 14.866079268639972,
+          "mph": 9.237350541234088,
+          "rpm": 40,
+        },
+        Array [
+          Object {
+            "kmph": 18.582599085799966,
+            "mph": 11.546688176542611,
+            "rpm": 50,
+          },
+          Array [
+            Object {
+              "kmph": 22.299118902959957,
+              "mph": 13.856025811851133,
+              "rpm": 60,
+            },
+            Array [
+              Object {
+                "kmph": 26.01563872011995,
+                "mph": 16.165363447159653,
+                "rpm": 70,
+              },
+              Array [
+                Object {
+                  "kmph": 29.732158537279943,
+                  "mph": 18.474701082468176,
+                  "rpm": 80,
+                },
+                Array [
+                  Object {
+                    "kmph": 33.44867835443994,
+                    "mph": 20.784038717776696,
+                    "rpm": 90,
+                  },
+                  Array [
+                    Object {
+                      "kmph": 37.16519817159993,
+                      "mph": 23.093376353085223,
+                      "rpm": 100,
+                    },
+                    Array [
+                      Object {
+                        "kmph": 40.88171798875992,
+                        "mph": 25.402713988393742,
+                        "rpm": 110,
+                      },
+                      Array [
+                        Object {
+                          "kmph": 44.598237805919915,
+                          "mph": 27.712051623702266,
+                          "rpm": 120,
+                        },
+                        Array [
+                          Object {
+                            "kmph": 48.314757623079906,
+                            "mph": 30.02138925901079,
+                            "rpm": 130,
+                          },
+                          Array [
+                            Object {
+                              "kmph": 52.0312774402399,
+                              "mph": 32.330726894319305,
+                              "rpm": 140,
+                            },
+                            Array [
+                              Object {
+                                "kmph": 55.747797257399895,
+                                "mph": 34.64006452962783,
+                                "rpm": 150,
+                              },
+                              0,
+                            ],
+                          ],
+                        ],
+                      ],
+                    ],
+                  ],
+                ],
+              ],
+            ],
+          ],
+        ],
+      ],
+    ],
+  ],
+]
+`;
