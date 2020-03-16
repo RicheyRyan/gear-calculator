@@ -8,7 +8,6 @@ type gearDetails = {
   gearInches: float,
   development: float,
   gainRatio: float,
-  skidPatches: int,
   equivalentGears: list(Gearing.ratio),
   cadences: list(Gearing.cadence),
 };
@@ -17,7 +16,6 @@ let createGearing = gearing => {
   gearInches: Gearing.gearInches(gearing),
   development: Gearing.metresOfDevelopment(gearing),
   gainRatio: Gearing.gainRatio(gearing),
-  skidPatches: Gearing.skidPatches(gearing)->int_of_float,
   equivalentGears: Gearing.equivalentGear(gearing),
   cadences: Gearing.generateCadences(gearing),
 };
@@ -128,14 +126,6 @@ let make = (~gearing, ~updateGear) => {
               </Select>
             </Field>
           </Column>
-          <Column>
-            <Field label="Ambidextrous Skidder">
-              <Checkbox
-                onChange=updateAmbidextrousSkidder
-                checked={gearing.ambidextrousSkidder}
-              />
-            </Field>
-          </Column>
         </Columns>
       </Content>
       <hr />
@@ -157,11 +147,6 @@ let make = (~gearing, ~updateGear) => {
             <Field label="Gain ratio">
               {Js.Float.toFixedWithPrecision(details.gainRatio, ~digits=1)
                ->React.string}
-            </Field>
-          </Column>
-          <Column>
-            <Field label="Skid patches">
-              {Int.toString(details.skidPatches)->React.string}
             </Field>
           </Column>
         </Columns>

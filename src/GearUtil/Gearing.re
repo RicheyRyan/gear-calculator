@@ -102,14 +102,6 @@ let lowestFraction = (numerator: float, denominator: float) => {
 let metresOfDevelopment = gearing =>
   gearInches(gearing) |> inchToMetre |> (gearMetre => gearMetre *. Float.pi);
 
-let skidPatches = ({chainringTeeth, cogTeeth}: t) =>
-  lowestFraction(chainringTeeth, cogTeeth)
-  |> (gearRatio => gearRatio.denominator);
-
-let ambidextrousSkidPatches = gearing =>
-  skidPatches(gearing)
-  |> (patches => isEvenFloat(patches) ? patches : patches *. 2.0);
-
 let radiusRatio = (~wheelSize: float, ~crankLength: float) =>
   wheelSize /. 2.0 /. mmToInch(crankLength);
 
