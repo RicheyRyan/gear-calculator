@@ -8,7 +8,7 @@ type t = {
 };
 
 let make = () => {
-  createdAt: Js.Date.now()->int_of_float,
+  createdAt: Js.Date.now()->Float.toInt->Option.get(~default=0),
   chainringTeeth: 46.,
   cogTeeth: 16.,
   wheelSize: 27.,
@@ -16,7 +16,7 @@ let make = () => {
   ambidextrousSkidder: false,
 };
 
-type gearTeeth = Belt.List.t(float);
+type gearTeeth = List.t(float);
 
 type wheel = {
   name: string,
