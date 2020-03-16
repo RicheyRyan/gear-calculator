@@ -47,13 +47,6 @@ let make = (~gearing, ~updateGear) => {
     updateGear({...gearing, crankLength});
   };
 
-  let updateAmbidextrousSkidder = _e => {
-    updateGear({
-      ...gearing,
-      ambidextrousSkidder: !gearing.ambidextrousSkidder,
-    });
-  };
-
   <section className=Styles.container>
     <Card>
       <Content>
@@ -156,6 +149,34 @@ let make = (~gearing, ~updateGear) => {
         <Columns>
           <Column is6=true>
             <Label> {React.string("Cadences")} </Label>
+            <Table>
+              <thead>
+                <tr>
+                  <td> {React.string("Cadence")} </td>
+                  <td> {React.string("Kmph")} </td>
+                  <td> {React.string("Mph")} </td>
+                </tr>
+              </thead>
+              <tbody>
+                {List.map(details.cadences, ~f=({rpm, mph, kmph}) =>
+                   <tr>
+                     <td>
+                       {Float.round(rpm)->Float.toString->React.string}
+                     </td>
+                     <td>
+                       {Js.Float.toFixedWithPrecision(kmph, ~digits=2)
+                        ->React.string}
+                     </td>
+                     <td>
+                       {Js.Float.toFixedWithPrecision(mph, ~digits=2)
+                        ->React.string}
+                     </td>
+                   </tr>
+                 )
+                 ->List.toArray
+                 ->React.array}
+              </tbody>
+            </Table>
           </Column>
           <Column is6=true>
             <Label> {React.string("Equivalent Gears")} </Label>
