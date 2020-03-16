@@ -5645,6 +5645,11 @@ reason-react@^0.7.0:
     react ">=16.8.1"
     react-dom ">=16.8.1"
 
+reason-standard@^0.1.0-alpha.1:
+  version "0.1.0-alpha.1"
+  resolved "https://registry.yarnpkg.com/reason-standard/-/reason-standard-0.1.0-alpha.1.tgz#59e050969261de77f92ccc54537e9b160a0c867b"
+  integrity sha512-0QvD+b2Md9/gHZdOCH1a9IIcTy9ECjMKuQojtRFZHoFPmyVqyLDjsQ03PIBhI3IH84XPn1VIoZAe1WLwREJSYw==
+
 regenerate-unicode-properties@^8.1.0:
   version "8.1.0"
   resolved "https://registry.yarnpkg.com/regenerate-unicode-properties/-/regenerate-unicode-properties-8.1.0.tgz#ef51e0f0ea4ad424b77bf7cb41f3e015c70a3f0e"

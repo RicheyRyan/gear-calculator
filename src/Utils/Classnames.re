@@ -1,4 +1,4 @@
-let make = cns => cns->Belt.List.keep(x => x !== "")->String.concat(" ", _);
+let make = cns => cns->List.filter(~f=x => x !== "")->List.join(~sep=" ");
 
 let ifTrue = (cn, x) => x ? cn : "";
 
