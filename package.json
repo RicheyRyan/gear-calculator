@@ -23,7 +23,8 @@
     "parcel": "^1.12.4",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "reason-react": "^0.7.0"
+    "reason-react": "^0.7.0",
+    "reason-standard": "^0.1.0-alpha.1"
   },
   "devDependencies": {
     "@glennsl/bs-jest": "^0.4.9",

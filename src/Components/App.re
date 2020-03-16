@@ -26,18 +26,18 @@ type state = {
 let reducer = (state, action) =>
   switch (action) {
   | AddGearing(gearing) =>
-    let newGearings = List.concat([state.gearings, [gearing]]);
+    let newGearings = List.append(state.gearings, [gearing]);
     {gearings: newGearings, selected: List.length(newGearings) - 1};
   | RemoveGearing(gearing) =>
     let newGearings =
       List.length(state.gearings) > 0
-        ? List.filter(g => g != gearing, state.gearings) : state.gearings;
+        ? List.filter(~f=g => g != gearing, state.gearings) : state.gearings;
     {gearings: newGearings, selected: List.length(newGearings) - 1};
   | UpdateGearing(gearing) => {
       ...state,
       gearings:
         List.map(
-          (g: Gearing.t) => g.createdAt == gearing.createdAt ? gearing : g,
+          ~f=(g: Gearing.t) => g.createdAt == gearing.createdAt ? gearing : g,
           state.gearings,
         ),
     }
@@ -45,19 +45,20 @@ let reducer = (state, action) =>
   };
 
 let renderGearListItems = (~gearings, ~selected, ~dispatch) => {
-  List.mapi(
-    (i, gearing) =>
-      <GearListItem
-        key={gearing.createdAt->string_of_int}
-        gearing
-        handleView={_ => SetSelectedGearing(i)->dispatch}
-        handleRemove={_ => RemoveGearing(gearing)->dispatch}
-        isActive={selected == i}
-        isOnlyItem={List.length(gearings) == 1}
-      />,
+  List.mapI(
+    ~f=
+      (i, gearing) =>
+        <GearListItem
+          key={gearing.createdAt->string_of_int}
+          gearing
+          handleView={_ => SetSelectedGearing(i)->dispatch}
+          handleRemove={_ => RemoveGearing(gearing)->dispatch}
+          isActive={selected == i}
+          isOnlyItem={List.length(gearings) == 1}
+        />,
     gearings,
   )
-  ->Array.of_list
+  ->List.toArray
   ->React.array;
 };
 
@@ -98,7 +99,7 @@ let make = () => {
       </Column>
       <Column>
         <GearCalculator
-          gearing={List.nth(gearings, selected)}
+          gearing={List.getAt(gearings, ~index=selected)->Option.getUnsafe}
           updateGear={gearing => UpdateGearing(gearing)->dispatch}
         />
       </Column>

@@ -23,8 +23,9 @@
   "suffix": ".bs.js",
   "namespace": true,
   "ignored-dirs": ["node_modules"],
-  "bs-dependencies": ["reason-react", "bs-css"],
+  "bs-dependencies": ["reason-react", "bs-css", "reason-standard"],
   "bs-dev-dependencies": ["@glennsl/bs-jest"],
   "ppx-flags": [],
+  "bsc-flags": ["-open", "Standard"],
   "refmt": 3
 }

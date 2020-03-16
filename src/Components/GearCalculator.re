@@ -27,7 +27,7 @@ let make = (~gearing, ~updateGear) => {
   let details = createGearing(gearing);
   let updateChainring = e => {
     let value = e->ReactEvent.Form.target##value;
-    let chainringTeeth = Js.Float.fromString(value);
+    let chainringTeeth = Float.ofString(value)->Option.get(~default=1.);
     updateGear({...gearing, chainringTeeth});
   };
 
@@ -39,13 +39,13 @@ let make = (~gearing, ~updateGear) => {
 
   let updateWheelSize = e => {
     let value = e->ReactEvent.Form.target##value;
-    let wheelSize = Js.Float.fromString(value);
+    let wheelSize = Float.ofString(value)->Option.get(~default=1.);
     updateGear({...gearing, wheelSize});
   };
 
   let updateCrankLength = e => {
     let value = e->ReactEvent.Form.target##value;
-    let crankLength = Js.Float.fromString(value);
+    let crankLength = Float.ofString(value)->Option.get(~default=1.);
     updateGear({...gearing, crankLength});
   };
 
@@ -65,12 +65,12 @@ let make = (~gearing, ~updateGear) => {
               <Select
                 value={gearing.chainringTeeth->Js.Float.toString}
                 onChange=updateChainring>
-                {Belt.List.map(GearingValues.chainringTeeth, tooth =>
-                   <option key={Js.Float.toString(tooth)}>
-                     {Js.Float.toString(tooth)->React.string}
+                {List.map(GearingValues.chainringTeeth, ~f=tooth =>
+                   <option key={Float.toString(tooth)}>
+                     {Float.toString(tooth)->React.string}
                    </option>
                  )
-                 ->Array.of_list
+                 ->List.toArray
                  ->React.array}
               </Select>
             </Field>
@@ -78,17 +78,17 @@ let make = (~gearing, ~updateGear) => {
           <Column>
             <Field label="Cog">
               <Select
-                value={gearing.cogTeeth->Js.Float.toString} onChange=updateCog>
-                {Belt.List.map(
+                value={gearing.cogTeeth->Float.toString} onChange=updateCog>
+                {List.map(
                    GearingValues.cogTeeth,
-                   tooth => {
-                     let toothString = Js.Float.toString(tooth);
+                   ~f=tooth => {
+                     let toothString = Float.toString(tooth);
                      <option value=toothString key=toothString>
                        toothString->React.string
                      </option>;
                    },
                  )
-                 ->Array.of_list
+                 ->List.toArray
                  ->React.array}
               </Select>
             </Field>
@@ -98,13 +98,13 @@ let make = (~gearing, ~updateGear) => {
               <Select
                 value={gearing.wheelSize->Js.Float.toString}
                 onChange=updateWheelSize>
-                {Belt.List.map(GearingValues.wheelSizes, wheel =>
+                {List.map(GearingValues.wheelSizes, ~f=wheel =>
                    <option
-                     value={Js.Float.toString(wheel.value)} key={wheel.key}>
+                     value={Float.toString(wheel.value)} key={wheel.key}>
                      wheel.name->React.string
                    </option>
                  )
-                 ->Array.of_list
+                 ->List.toArray
                  ->React.array}
               </Select>
             </Field>
@@ -112,18 +112,18 @@ let make = (~gearing, ~updateGear) => {
           <Column>
             <Field label="Crank length">
               <Select
-                value={gearing.crankLength->Js.Float.toString}
+                value={gearing.crankLength->Float.toString}
                 onChange=updateCrankLength>
-                {Belt.List.map(
+                {List.map(
                    GearingValues.crankLengths,
-                   crank => {
-                     let crankString = crank->Js.Float.toString;
+                   ~f=crank => {
+                     let crankString = crank->Float.toString;
                      <option value=crankString key=crankString>
                        crankString->React.string
                      </option>;
                    },
                  )
-                 ->Array.of_list
+                 ->List.toArray
                  ->React.array}
               </Select>
             </Field>
@@ -161,7 +161,7 @@ let make = (~gearing, ~updateGear) => {
           </Column>
           <Column>
             <Field label="Skid patches">
-              {string_of_int(details.skidPatches)->React.string}
+              {Int.toString(details.skidPatches)->React.string}
             </Field>
           </Column>
         </Columns>

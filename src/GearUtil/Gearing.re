@@ -69,20 +69,20 @@ let cadenceToSpeedMiles = (cadence: float, metresOfDevelopment: float) =>
 
 let equivalentGear = ({chainringTeeth, cogTeeth}: t) => {
   let ratio = chainringTeeth /. cogTeeth;
-  let range = Belt.Array.range(1, 100);
+  let range = List.range(~from=1, 100);
   let baseRatio: ratio = {numerator: ratio, denominator: 1.0};
-  Belt.Array.reduce(
+  List.fold(
     range,
-    [],
-    (gears, i) => {
+    ~initial=[],
+    ~f=(gears, i) => {
       let newRatio: ratio = {
-        numerator: baseRatio.numerator *. float_of_int(i),
-        denominator: baseRatio.denominator *. float_of_int(i),
+        numerator: baseRatio.numerator *. Int.toFloat(i),
+        denominator: baseRatio.denominator *. Int.toFloat(i),
       };
       isEvenFloat(newRatio.numerator)
       && newRatio.numerator < 60.
       && newRatio.denominator > 10.
-        ? List.concat([gears, [newRatio]]) : gears;
+        ? List.append(gears, [newRatio]) : gears;
     },
   );
 };
@@ -94,18 +94,13 @@ let gearInches = ({wheelSize, chainringTeeth, cogTeeth}: t) =>
 let rec greatestCommonDivisor = (x: float, y: float) =>
   y > 0.0 ? greatestCommonDivisor(y, mod_float(x, y)) : x;
 
-let lowestFraction = (numerator: float, denominator: float) =>
-  greatestCommonDivisor(numerator, denominator)
-  |> (
-    (gcd) => (
-      {numerator: numerator /. gcd, denominator: denominator /. gcd}: ratio
-    )
-  );
+let lowestFraction = (numerator: float, denominator: float) => {
+  let gcd = greatestCommonDivisor(numerator, denominator);
+  {numerator: numerator /. gcd, denominator: denominator /. gcd};
+};
 
 let metresOfDevelopment = gearing =>
-  gearInches(gearing)
-  |> inchToMetre
-  |> (gearMetre => gearMetre *. Js.Math._PI);
+  gearInches(gearing) |> inchToMetre |> (gearMetre => gearMetre *. Float.pi);
 
 let skidPatches = ({chainringTeeth, cogTeeth}: t) =>
   lowestFraction(chainringTeeth, cogTeeth)
@@ -124,15 +119,11 @@ let gainRatio = ({wheelSize, crankLength, chainringTeeth, cogTeeth}: t) =>
 
 let generateCadences = (gearing): list(cadence) => {
   let development = metresOfDevelopment(gearing);
-  let rpms =
-    Belt.Array.range(1, 15)->Belt.Array.map(i => float_of_int(i * 10));
-  Belt.Array.map(
-    rpms,
-    rpm => {
+  List.range(~from=1, 15)
+  ->List.map(~f=i => Int.toFloat(i * 10))
+  ->List.map(~f=rpm => {
       let kmph = cadenceToSpeedKm(rpm, development);
       let mph = cadenceToSpeedMiles(rpm, development);
       {rpm, kmph, mph};
-    },
-  )
-  ->Array.to_list;
+    });
 };
