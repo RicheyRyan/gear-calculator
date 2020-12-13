@@ -1,0 +1,16 @@
+{
+  "autorun": true,
+  "autokill": true,
+  "terminals": [
+    {
+      "name": "Git",
+      "cwd": "~/Projects/gear-calculator",
+      "command": "git status"
+    },
+    {
+      "name": "Build",
+      "cwd": "~/Projects/gear-calculator",
+      "command": "yarn start"
+    }
+  ]
+}
