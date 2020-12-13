@@ -1,37 +1,12 @@
 {
-  "name": "gear-calculator",
-  "version": "0.1.0",
-  "scripts": {
-    "start": "concurrently -c --kill-others-on-fail 'npm:watch-*'",
-    "build": "yarn build-reason && yarn build-html",
-    "watch-html": "parcel src/index.html",
-    "build-html": "parcel build src/index.html --public-url ./",
-    "watch-reason": "bsb -make-world -w",
-    "build-reason": "bsb -make-world",
-    "clean-reason": "bsb -clean-world",
-    "test": "yarn build-reason && jest --coverage"
-  },
-  "keywords": [
-    "BuckleScript"
-  ],
-  "author": "",
-  "license": "MIT",
-  "dependencies": {
-    "bs-css": "^11.0.0",
-    "bulma": "^0.8.0",
-    "global": "^4.4.0",
-    "parcel": "^1.12.4",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "reason-react": "^0.7.0",
-    "reason-standard": "^0.1.0-alpha.1"
-  },
   "devDependencies": {
-    "@glennsl/bs-jest": "^0.4.9",
-    "bs-platform": "^7.1.1",
-    "bsb-js": "^1.1.7",
-    "concurrently": "^5.1.0",
-    "parcel-bundler": "^1.12.3",
-    "parcel-plugin-bundle-visualiser": "^1.2.0"
+    "shadow-cljs": "^2.10.14"
+  },
+  "dependencies": {
+    "@material-ui/core": "4.11.0",
+    "@material-ui/lab": "4.0.0-alpha.56",
+    "@material-ui/pickers": "3.2.10",
+    "react": "16.13.0",
+    "react-dom": "16.13.0"
   }
 }
